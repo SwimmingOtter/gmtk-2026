@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://c2fhblhm4fl32"]
+
+[ext_resource type="Script" uid="uid://c7j3mehntkr30" path="res://ui/prototype.gd" id="1_omeyu"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_11rml"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t2dwb"]
+texture = SubResource("CanvasTexture_11rml")
+modulate_color = Color(0.22745098, 0.36862746, 0.39607844, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3figq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2dwb"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="prototype" type="Control" unique_id=1857927859]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_omeyu")
+
+[node name="Background" type="Panel" parent="." unique_id=389527644]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_t2dwb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=567294436]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1175293590]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1493488245]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=930773794]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=338401176]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = "21"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2" unique_id=1588139827]
+layout_mode = 2
+theme_override_constants/separation = 17
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3figq")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2" unique_id=1229407937]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "PUSH"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer" unique_id=1405264740]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Timer" type="Timer" parent="." unique_id=1453747835]
+
+[node name="RestartPanelContainer" type="PanelContainer" parent="." unique_id=1872504640]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t2dwb")
+
+[node name="MarginContainer" type="MarginContainer" parent="RestartPanelContainer" unique_id=610458744]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RestartPanelContainer/MarginContainer" unique_id=598124313]
+layout_mode = 2
+alignment = 1
+
+[node name="RestartLabel" type="Label" parent="RestartPanelContainer/MarginContainer/VBoxContainer" unique_id=507687631]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Restart ?"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="RestartPanelContainer/MarginContainer/VBoxContainer" unique_id=319693067]
+layout_mode = 2
+theme_override_constants/separation = 17
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3figq")
+
+[node name="RestartButton" type="Button" parent="RestartPanelContainer/MarginContainer/VBoxContainer" unique_id=764008705]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+text = "Yes !"
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="RestartPanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

@@ -1,0 +1,5 @@
+class_name DisplayModifier extends Node
+
+func apply(display_text: String, number: int) -> String:
+	"""Should check if it should apply and if it should have been pressed"""
+	return display_text

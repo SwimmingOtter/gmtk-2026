@@ -11,18 +11,19 @@ config_version=5
 [application]
 
 config/name="GMTK_2026"
+run/main_scene="uid://c3is1ts63ud2q"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [file_customization]
 
 folder_colors={
-"res://assets/": "blue",
-"res://game/": "red",
+"res://assets/": "pink",
+"res://game/": "blue",
 "res://globals/": "yellow",
 "res://ui/": "green"
 }
@@ -33,6 +34,7 @@ folder_colors={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
