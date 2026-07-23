@@ -8,5 +8,7 @@
 
 [node name="prototype" parent="CanvasLayer" unique_id=1857927859 instance=ExtResource("1_l1rk1")]
 default_start_idx = 5
-rules_lost_after_tower_round = 3
+retry_allowed_by_tower_round = null
+nb_of_tower_rounds = null
+rules_lost_after_tower_round = null
 rule_count = 5

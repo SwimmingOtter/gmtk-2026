@@ -1,10 +1,4 @@
-class_name PressRule extends Node
-
-
-var description: String
-
-func _init(desc: String) -> void:
-	description = desc
+class_name PressRule extends Rule
 
 func check(display_text: String, number: int, pressed: bool) -> bool:
 	"""Should check if it should apply and if it should have been pressed"""

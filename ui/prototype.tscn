@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://c2fhblhm4fl32"]
 
-[ext_resource type="Script" uid="uid://c7j3mehntkr30" path="res://ui/prototype.gd" id="1_omeyu"]
+[ext_resource type="Script" uid="uid://ofrqw61l4mu1" path="res://ui/Prototype.gd" id="2_ps5jn"]
+[ext_resource type="PackedScene" uid="uid://ce16ooxl06bxw" path="res://ui/rule_panel.tscn" id="2_wgcve"]
+[ext_resource type="Script" uid="uid://kdjpyn00swn4" path="res://ui/RulePanel.gd" id="3_ps5jn"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_11rml"]
 
@@ -20,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_omeyu")
+script = ExtResource("2_ps5jn")
 
 [node name="Background" type="Panel" parent="." unique_id=389527644]
 z_index = -1
@@ -41,9 +43,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1175293590]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1624735194]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="RulePanel" parent="HBoxContainer/MarginContainer" unique_id=384140878 instance=ExtResource("2_wgcve")]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("3_ps5jn")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1493488245]
 layout_mode = 2
@@ -58,8 +65,8 @@ size_flags_horizontal = 4
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 60
-text = "21"
+theme_override_font_sizes/font_size = 150
+text = "00"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2" unique_id=1588139827]
@@ -69,7 +76,8 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_3figq")
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2" unique_id=1229407937]
 layout_mode = 2
-mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 100
 text = "PUSH"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer" unique_id=1405264740]
@@ -80,6 +88,7 @@ size_flags_horizontal = 3
 
 [node name="RestartPanelContainer" type="PanelContainer" parent="." unique_id=1872504640]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

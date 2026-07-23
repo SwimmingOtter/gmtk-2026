@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dcfx1jmbjjito"]
+
+[node name="RuleContainer" type="HBoxContainer" unique_id=1375321037]
+
+[node name="NumberLabel" type="Label" parent="." unique_id=2066035947]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "1"
+
+[node name="IntermediateLabel" type="Label" parent="." unique_id=151341598]
+layout_mode = 2
+text = "- "
+
+[node name="DescriptionLabel" type="Label" parent="." unique_id=1932650688]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 2

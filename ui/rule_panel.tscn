@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ce16ooxl06bxw"]
+
+[ext_resource type="Script" uid="uid://ofrqw61l4mu1" path="res://ui/Prototype.gd" id="1_630mk"]
+[ext_resource type="Texture2D" uid="uid://dbtngt53w0tmr" path="res://assets/icons/bb.png" id="2_ck3nv"]
+[ext_resource type="PackedScene" uid="uid://dcfx1jmbjjito" path="res://ui/rule_container.tscn" id="3_ck3nv"]
+
+[node name="RulePanel" type="PanelContainer" unique_id=384140878]
+size_flags_vertical = 0
+script = ExtResource("1_630mk")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1843744354]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1327830118]
+layout_mode = 2
+
+[node name="MonkeyRuleContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2096679186]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/MonkeyRuleContainer" unique_id=81136681]
+layout_mode = 2
+size_flags_horizontal = 4
+offset_transform_enabled = true
+offset_transform_scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_ck3nv")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MonkeyRuleContainer" unique_id=1522622769]
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8666667, 0.15294118, 0.20392157, 1)
+text = "DO NOT LET THE MONKEYS HIT THE BUTTON DUMBASSSSSSSSSSSS"
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=701282825]
+layout_mode = 2
+theme_override_constants/separation = 19
+
+[node name="RulesContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1123498905]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="RuleContainer" parent="MarginContainer/VBoxContainer/RulesContainer" unique_id=1375321037 instance=ExtResource("3_ck3nv")]
+layout_mode = 2
