@@ -1,9 +1,16 @@
 [gd_scene format=3 uid="uid://c2fhblhm4fl32"]
 
-[ext_resource type="Script" uid="uid://ofrqw61l4mu1" path="res://ui/Prototype.gd" id="2_ps5jn"]
+[ext_resource type="Script" uid="uid://lnsl00mjsgug" path="res://ui/Prototype.gd" id="2_ps5jn"]
 [ext_resource type="PackedScene" uid="uid://ce16ooxl06bxw" path="res://ui/rule_panel.tscn" id="2_wgcve"]
 [ext_resource type="Script" uid="uid://kdjpyn00swn4" path="res://ui/RulePanel.gd" id="3_ps5jn"]
 [ext_resource type="PackedScene" uid="uid://es3yr2fyf6lw" path="res://ui/pause_menu.tscn" id="4_2yb2i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxha2"]
+bg_color = Color(0.23730722, 0.39497346, 0.38122904, 0.57254905)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3figq"]
 
@@ -47,14 +54,19 @@ alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=930773794]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_oxha2")
 
-[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=338401176]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=21342089]
+layout_mode = 2
+
+[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer" unique_id=338401176]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 150
 text = "00"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2" unique_id=1588139827]
 layout_mode = 2
