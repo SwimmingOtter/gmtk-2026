@@ -15,6 +15,9 @@ modulate_color = Color(0.22745098, 0.36862746, 0.39607844, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2dwb"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2va7"]
+bg_color = Color(0.2784314, 0.64705884, 0.8, 0.78039217)
+
 [node name="prototype" type="Control" unique_id=1857927859]
 layout_mode = 3
 anchors_preset = 15
@@ -133,6 +136,57 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 text = "Yes !"
 
+[node name="CheatPanel" type="PanelContainer" parent="." unique_id=245231116]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_m2va7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CheatPanel" unique_id=275012442]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CheatPanel/VBoxContainer" unique_id=1246524050]
+layout_mode = 2
+text = "DEV CHEAT CONSOLE"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="CheatPanel/VBoxContainer" unique_id=917194076]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 21
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="WinGameButton" type="Button" parent="CheatPanel/VBoxContainer/GridContainer" unique_id=1824366107]
+layout_mode = 2
+text = "WIN GAME"
+
+[node name="WinRoundButton" type="Button" parent="CheatPanel/VBoxContainer/GridContainer" unique_id=1540352857]
+layout_mode = 2
+text = "WIN ROUND"
+
+[node name="LoseGameButton" type="Button" parent="CheatPanel/VBoxContainer/GridContainer" unique_id=2016189238]
+layout_mode = 2
+text = "LOSE GAME"
+
+[node name="LoseRoundButton" type="Button" parent="CheatPanel/VBoxContainer/GridContainer" unique_id=1964365431]
+layout_mode = 2
+text = "LOSE ROUND"
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="RestartPanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CheatPanel/VBoxContainer/GridContainer/WinGameButton" to="." method="_on_win_game_button_pressed"]
+[connection signal="pressed" from="CheatPanel/VBoxContainer/GridContainer/WinRoundButton" to="." method="_on_win_round_button_pressed"]
+[connection signal="pressed" from="CheatPanel/VBoxContainer/GridContainer/LoseGameButton" to="." method="_on_lose_game_button_pressed"]
+[connection signal="pressed" from="CheatPanel/VBoxContainer/GridContainer/LoseRoundButton" to="." method="_on_lose_round_button_pressed"]

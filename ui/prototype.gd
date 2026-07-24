@@ -7,6 +7,7 @@ var rules: Dictionary = {}
 var tower_rounds: int = 0
 var retry_count: int = 0
 
+@onready var cheat_panel: PanelContainer = %CheatPanel
 @onready var rule_panel: RulePanel = %RulePanel
 @onready var restart_panel_container: PanelContainer = %RestartPanelContainer
 @onready var restart_label: Label = %RestartLabel
@@ -15,6 +16,8 @@ var retry_count: int = 0
 
 func _ready() -> void:
 	restart_panel_container.visible = true
+	
+	cheat_panel.visible = Constants.DEBUG_MODE
 
 
 func start_game() -> void:
@@ -108,3 +111,17 @@ func _on_button_pressed() -> void:
 
 func _on_restart_button_pressed() -> void:
 	start_game()
+
+
+
+func _on_win_game_button_pressed() -> void:
+	game_won()
+	
+func _on_win_round_button_pressed() -> void:
+	round_won()
+	
+func _on_lose_game_button_pressed() -> void:
+	game_lost()
+	
+func _on_lose_round_button_pressed() -> void:
+	round_lost()
