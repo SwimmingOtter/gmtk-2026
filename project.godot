@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 [autoload]
 
 Constante="*uid://be6q2shrijajg"
+EventBus="*uid://6q674f42kvbl"
 
 [display]
 

@@ -33,7 +33,6 @@ func start_tower_round() -> void:
 
 func _reset_rules() -> void:
 	rules = RuleManager.reset_rules()
-	rule_panel.display(rules, Constants.RULE_COUNT)
 
 
 func start_round() -> void:
@@ -41,6 +40,7 @@ func start_round() -> void:
 	print("Tower round: " + str(tower_rounds) + " / " + str(Constants.TOWER_ROUNDS))
 	print("Retry count: " + str(retry_count) + " / " + str(Constants.BASE_RETRY_COUNT))
 	print("Rules count: " + str(len(rules)) + " / " + str(Constants.RULE_COUNT))
+	
 	current_count_idx = Constants.BASE_START_COUNT
 	countdown_label.text = str(current_count_idx)
 	timer.start()
@@ -76,12 +76,10 @@ func game_lost(display_text: String = "KO") -> void:
 func round_won(display_text: String = "You did it!") -> void:
 	if len(rules) < Constants.RULE_COUNT:
 		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
-		rule_panel.display(rules, Constants.RULE_COUNT)
 		start_round()
 	else:
 		if tower_rounds < Constants.TOWER_ROUNDS:
 			rules = RuleManager.remove_random_rules(rules, Constants.RULE_COUNT, Constants.RULE_LOST_PER_TOWER)
-			rule_panel.display(rules, Constants.RULE_COUNT)
 			start_tower_round()
 		else:
 			game_won(display_text)
