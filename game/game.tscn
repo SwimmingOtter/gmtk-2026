@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c3is1ts63ud2q"]
 
 [ext_resource type="PackedScene" uid="uid://c2fhblhm4fl32" path="res://ui/prototype.tscn" id="1_l1rk1"]
+[ext_resource type="PackedScene" uid="uid://b8e3ka4joxb0y" path="res://ui/start_menu.tscn" id="2_vasa2"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_11rml"]
 
@@ -23,3 +24,6 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_l1rk1")
 
 [node name="prototype" parent="CanvasLayer" unique_id=1857927859 instance=ExtResource("1_l1rk1")]
+
+[node name="StartMenu" parent="CanvasLayer" unique_id=1241606550 instance=ExtResource("2_vasa2")]
+visible = false
