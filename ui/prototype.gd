@@ -6,6 +6,8 @@ var current_countdown: Array[int] = Constants.BASE_COUNTDOWN.duplicate()
 var rules: Dictionary = {}
 var tower_rounds: int = 0
 var retry_count: int = 0
+var measure_music: int = 0
+var FirstBar: int = 0
 
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
@@ -13,6 +15,14 @@ var retry_count: int = 0
 @onready var restart_panel_container: PanelContainer = %RestartPanelContainer
 @onready var restart_label: Label = %RestartLabel
 @onready var timer: Timer = $Timer
+@onready var sfx_tic: AudioStreamPlayer = $SFX_Tic
+@onready var sfx_re: AudioStreamPlayer = $SFX_Re
+@onready var sfx_re_sharp: AudioStreamPlayer = $SFX_ReSharp
+@onready var sfx_do: AudioStreamPlayer = $SFX_Do
+@onready var background_music: AudioStreamPlayer = $background_Music
+@onready var sfx_la: AudioStreamPlayer = $SFX_La
+
+
 
 
 func _ready() -> void:
@@ -61,7 +71,9 @@ func start_round() -> void:
 	current_count_idx = Constants.BASE_START_COUNT
 	countdown_label.text = str(current_count_idx)
 	timer.start()
-
+	timer.wait_time = 0.72
+	background_music.play
+	
 
 func _on_timer_timeout() -> void:
 	# check if any rule were missed
@@ -74,6 +86,25 @@ func _on_timer_timeout() -> void:
 		countdown_label.text = str(current_count_idx)
 		for modifier in RuleManager.get_display_rules(rules):
 			countdown_label.text = modifier.apply(countdown_label.text, current_count_idx)
+		sfx_tic.play()
+		if FirstBar == 0:
+			if measure_music != 7 :
+				measure_music += 1
+			else:
+				measure_music = 0
+				FirstBar += 1
+		else:
+			measure_music += 1
+			if measure_music == 1 :
+				sfx_la.play()
+			else: if measure_music == 5 :
+				sfx_do.play()
+			else: if measure_music == 7 :
+				sfx_re_sharp.play()
+			else: if measure_music == 9 :
+				sfx_re.play()
+			if measure_music == 16 :
+				measure_music=0
 
 
 func round_lost(display_text: String = "KO") -> void:
