@@ -7,6 +7,7 @@ var rules: Dictionary = {}
 var tower_rounds: int = 0
 var retry_count: int = 0
 
+@onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
 @onready var rule_panel: RulePanel = %RulePanel
 @onready var restart_panel_container: PanelContainer = %RestartPanelContainer
@@ -19,6 +20,19 @@ func _ready() -> void:
 	
 	cheat_panel.visible = Constants.DEBUG_MODE
 
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("pause"):
+		if timer.is_stopped():
+			resume()
+		else:
+			timer.stop()
+			pause_menu.visible = true
+
+
+func resume() -> void:
+	timer.start()
+	pause_menu.visible = false
 
 func start_game() -> void:
 	print("start")
@@ -108,12 +122,6 @@ func _on_button_pressed() -> void:
 		print("Nope!")
 		_check_rules(true)
 
-
-func _on_restart_button_pressed() -> void:
-	start_game()
-
-
-
 func _on_win_game_button_pressed() -> void:
 	game_won()
 	
@@ -125,3 +133,10 @@ func _on_lose_game_button_pressed() -> void:
 	
 func _on_lose_round_button_pressed() -> void:
 	round_lost()
+
+func _on_restart_button_pressed() -> void:
+	resume()
+	start_game()
+	
+func _on_resume_button_pressed() -> void:
+	resume()

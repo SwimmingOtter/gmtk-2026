@@ -2,8 +2,24 @@
 
 [ext_resource type="PackedScene" uid="uid://c2fhblhm4fl32" path="res://ui/prototype.tscn" id="1_l1rk1"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_11rml"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l1rk1"]
+texture = SubResource("CanvasTexture_11rml")
+modulate_color = Color(0.22745098, 0.36862746, 0.39607844, 1)
+
 [node name="game" type="Node2D" unique_id=154813523]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1901600331]
+
+[node name="Background" type="Panel" parent="CanvasLayer" unique_id=419427327]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxTexture_l1rk1")
 
 [node name="prototype" parent="CanvasLayer" unique_id=1857927859 instance=ExtResource("1_l1rk1")]
