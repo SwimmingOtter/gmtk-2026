@@ -9,53 +9,86 @@
 [ext_resource type="Texture2D" uid="uid://c75tuxgab2dwr" path="res://assets/background/midground.png" id="3_u5opy"]
 [ext_resource type="Texture2D" uid="uid://dgiglq8edlw3g" path="res://assets/background/foreground.png" id="4_y36n6"]
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t2dwb"]
+normal = Vector2(0.15596257, 0.9877629)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y36n6"]
+normal = Vector2(0.99861777, 0.052558832)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_l8g03"]
+normal = Vector2(0.12716432, 0.99188167)
+distance = -9.850868
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j8tme"]
+normal = Vector2(-0.98307896, -0.18318242)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7mtq"]
+size = Vector2(321.5, 149)
+
 [node name="game" type="Node2D" unique_id=154813523]
 script = ExtResource("1_y36n6")
+monkey_scene = ExtResource("1_u5opy")
+monkey_count = 32
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1901600331]
 layer = 0
 
-[node name="Monkeys" type="Node" parent="CanvasLayer" unique_id=2116085495]
+[node name="Monkeys" type="Node2D" parent="CanvasLayer" unique_id=299239686]
+unique_name_in_owner = true
+y_sort_enabled = true
 
 [node name="Monkey" parent="CanvasLayer/Monkeys" unique_id=426823303 groups=["monkey"] instance=ExtResource("1_u5opy")]
 z_index = 1
-y_sort_enabled = true
 position = Vector2(489, 560)
 
 [node name="Monkey2" parent="CanvasLayer/Monkeys" unique_id=47853333 groups=["monkey"] instance=ExtResource("1_u5opy")]
 z_index = 1
-y_sort_enabled = true
 position = Vector2(525, 500)
 
 [node name="Monkey3" parent="CanvasLayer/Monkeys" unique_id=2039760764 groups=["monkey"] instance=ExtResource("1_u5opy")]
 z_index = 1
-y_sort_enabled = true
 position = Vector2(525, 500)
 
-[node name="Monkey4" parent="CanvasLayer/Monkeys" unique_id=145766625 groups=["monkey"] instance=ExtResource("1_u5opy")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(525, 500)
+[node name="Walls" type="Node" parent="CanvasLayer" unique_id=2052708362]
 
-[node name="Monkey5" parent="CanvasLayer/Monkeys" unique_id=1626230610 groups=["monkey"] instance=ExtResource("1_u5opy")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(525, 500)
+[node name="Area2D" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=1672758078]
+collision_mask = 2
 
-[node name="Monkey6" parent="CanvasLayer/Monkeys" unique_id=1052990031 groups=["monkey"] instance=ExtResource("1_u5opy")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(525, 500)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D" unique_id=1015450404]
+position = Vector2(986, 209)
+shape = SubResource("WorldBoundaryShape2D_t2dwb")
+one_way_collision = true
 
-[node name="Monkey7" parent="CanvasLayer/Monkeys" unique_id=976219491 groups=["monkey"] instance=ExtResource("1_u5opy")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(525, 500)
+[node name="Area2D2" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=45224169]
+collision_mask = 2
 
-[node name="Monkey8" parent="CanvasLayer/Monkeys" unique_id=759915721 groups=["monkey"] instance=ExtResource("1_u5opy")]
-z_index = 1
-y_sort_enabled = true
-position = Vector2(525, 500)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D2" unique_id=1751107591]
+position = Vector2(-6, 551)
+shape = SubResource("WorldBoundaryShape2D_y36n6")
+one_way_collision = true
+
+[node name="Area2D3" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=871847424]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D3" unique_id=914993920]
+position = Vector2(1079, 1038)
+shape = SubResource("WorldBoundaryShape2D_l8g03")
+
+[node name="Area2D4" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=500769059]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D4" unique_id=1296423668]
+position = Vector2(1811, 594)
+shape = SubResource("WorldBoundaryShape2D_j8tme")
+one_way_collision = true
+
+[node name="Area2D5" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=200883715]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D5" unique_id=1902989702]
+position = Vector2(958.25, 646.5)
+shape = SubResource("RectangleShape2D_d7mtq")
+one_way_collision = true
 
 [node name="Background" type="Control" parent="CanvasLayer" unique_id=419814525 node_paths=PackedStringArray("layers")]
 z_as_relative = false
