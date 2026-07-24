@@ -2,6 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://c2fhblhm4fl32" path="res://ui/prototype.tscn" id="1_l1rk1"]
 [ext_resource type="PackedScene" uid="uid://b8e3ka4joxb0y" path="res://ui/start_menu.tscn" id="2_vasa2"]
+[ext_resource type="AudioStream" uid="uid://x41xqerxaavk" path="res://assets/sfx/TIC85.wav" id="3_u5opy"]
+[ext_resource type="AudioStream" uid="uid://dotdjjle2mcn3" path="res://assets/sfx/TicLA85.wav" id="4_y36n6"]
+[ext_resource type="AudioStream" uid="uid://l7geeh6uhqqg" path="res://assets/sfx/Tic_RE.wav" id="5_l8g03"]
+[ext_resource type="AudioStream" uid="uid://bbmdtft2uvv1i" path="res://assets/sfx/Tic_ReSharp.wav" id="6_j8tme"]
+[ext_resource type="AudioStream" uid="uid://dgrwgrti4k6is" path="res://assets/sfx/Tic_Do.wav" id="7_3vho3"]
+[ext_resource type="AudioStream" uid="uid://buhttm51rm2po" path="res://assets/sfx/BackgroundTest.wav" id="7_y36n6"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_11rml"]
 
@@ -24,6 +30,36 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxTexture_l1rk1")
 
 [node name="prototype" parent="CanvasLayer" unique_id=1857927859 instance=ExtResource("1_l1rk1")]
+
+[node name="SFX_Tic" type="AudioStreamPlayer" parent="CanvasLayer/prototype" unique_id=1685014416]
+stream = ExtResource("3_u5opy")
+volume_db = -25.0
+bus = &"Sfx"
+
+[node name="SFX_La" type="AudioStreamPlayer" parent="CanvasLayer/prototype" unique_id=2143307175]
+stream = ExtResource("4_y36n6")
+volume_db = -25.0
+bus = &"Sfx"
+
+[node name="SFX_Re" type="AudioStreamPlayer" parent="CanvasLayer/prototype" unique_id=627392844]
+stream = ExtResource("5_l8g03")
+volume_db = -25.0
+bus = &"Sfx"
+
+[node name="SFX_ReSharp" type="AudioStreamPlayer" parent="CanvasLayer/prototype" unique_id=411818499]
+stream = ExtResource("6_j8tme")
+volume_db = -25.0
+bus = &"Sfx"
+
+[node name="SFX_Do" type="AudioStreamPlayer" parent="CanvasLayer/prototype" unique_id=1300785858]
+stream = ExtResource("7_3vho3")
+volume_db = -25.0
+bus = &"Sfx"
+
+[node name="background_Music" type="AudioStreamPlayer" parent="CanvasLayer/prototype" unique_id=826760459]
+stream = ExtResource("7_y36n6")
+volume_db = -25.0
+bus = &"Music"
 
 [node name="StartMenu" parent="CanvasLayer" unique_id=1241606550 instance=ExtResource("2_vasa2")]
 visible = false
