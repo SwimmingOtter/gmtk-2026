@@ -127,10 +127,36 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_bc0os"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.33333334, 0.51598173)
+colors = PackedColorArray(0, 0, 0, 0.77254903, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t2dwb"]
+gradient = SubResource("Gradient_bc0os")
+fill = 1
+fill_from = Vector2(0.517094, 0.5)
+fill_to = Vector2(1, 0.4636752)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t2dwb"]
+radius = 30.0
+
 [node name="Monkey" type="Node2D" unique_id=426823303]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1174928814]
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_t2dwb")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.13076913
+frame_progress = 0.48619843
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1470697850]
+z_index = -1
+position = Vector2(0, 59)
+scale = Vector2(3.5, 1)
+texture = SubResource("GradientTexture2D_t2dwb")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1813095763]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1467453845]
+shape = SubResource("CircleShape2D_t2dwb")

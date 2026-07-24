@@ -1,27 +1,96 @@
 [gd_scene format=3 uid="uid://c3is1ts63ud2q"]
 
+[ext_resource type="Script" uid="uid://b4aicwfcwdjkf" path="res://game/background.gd" id="1_h7iqs"]
 [ext_resource type="PackedScene" uid="uid://c2fhblhm4fl32" path="res://ui/prototype.tscn" id="1_l1rk1"]
+[ext_resource type="PackedScene" uid="uid://dp1u8c6sc0a0q" path="res://game/monkeys/monkey.tscn" id="1_u5opy"]
+[ext_resource type="Script" uid="uid://b2mck0mtbhv3p" path="res://game/game.gd" id="1_y36n6"]
+[ext_resource type="Texture2D" uid="uid://fvuuys00xmpr" path="res://assets/background/background.png" id="2_dakft"]
 [ext_resource type="PackedScene" uid="uid://b8e3ka4joxb0y" path="res://ui/start_menu.tscn" id="2_vasa2"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_11rml"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l1rk1"]
-texture = SubResource("CanvasTexture_11rml")
-modulate_color = Color(0.22745098, 0.36862746, 0.39607844, 1)
+[ext_resource type="Texture2D" uid="uid://c75tuxgab2dwr" path="res://assets/background/midground.png" id="3_u5opy"]
+[ext_resource type="Texture2D" uid="uid://dgiglq8edlw3g" path="res://assets/background/foreground.png" id="4_y36n6"]
 
 [node name="game" type="Node2D" unique_id=154813523]
+script = ExtResource("1_y36n6")
+
+[node name="Monkeys" type="Node" parent="." unique_id=2116085495]
+
+[node name="Monkey" parent="Monkeys" unique_id=426823303 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(489, 560)
+
+[node name="Monkey2" parent="Monkeys" unique_id=47853333 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(525, 500)
+
+[node name="Monkey3" parent="Monkeys" unique_id=2039760764 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(525, 500)
+
+[node name="Monkey4" parent="Monkeys" unique_id=145766625 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(525, 500)
+
+[node name="Monkey5" parent="Monkeys" unique_id=1626230610 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(525, 500)
+
+[node name="Monkey6" parent="Monkeys" unique_id=1052990031 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(525, 500)
+
+[node name="Monkey7" parent="Monkeys" unique_id=976219491 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(525, 500)
+
+[node name="Monkey8" parent="Monkeys" unique_id=759915721 groups=["monkey"] instance=ExtResource("1_u5opy")]
+y_sort_enabled = true
+position = Vector2(525, 500)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1901600331]
+layer = -1
 
-[node name="Background" type="Panel" parent="CanvasLayer" unique_id=419427327]
+[node name="Background" type="Control" parent="CanvasLayer" unique_id=419814525 node_paths=PackedStringArray("layers")]
 z_index = -1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxTexture_l1rk1")
+script = ExtResource("1_h7iqs")
+layers = [NodePath("Background"), NodePath("Midground"), NodePath("Foreground")]
+strengths = Array[float]([0.0, 5.0, 20.0])
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/Background" unique_id=1770288115]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 1900.0
+offset_bottom = 1060.0
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("2_dakft")
+
+[node name="Midground" type="TextureRect" parent="CanvasLayer/Background" unique_id=310735533]
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 1870.0
+offset_bottom = 1030.0
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_u5opy")
+
+[node name="Foreground" type="TextureRect" parent="CanvasLayer/Background" unique_id=1825623861]
+z_index = 2
+z_as_relative = false
+layout_mode = 0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 1860.0
+offset_bottom = 1020.0
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("4_y36n6")
 
 [node name="prototype" parent="CanvasLayer" unique_id=1857927859 instance=ExtResource("1_l1rk1")]
 
