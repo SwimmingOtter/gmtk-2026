@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://7c3aunokv023"]
+
+[ext_resource type="Script" uid="uid://df617gj8mfue0" path="res://globals/sound_manager.gd" id="1_017xh"]
+[ext_resource type="AudioStream" uid="uid://x41xqerxaavk" path="res://assets/sfx/TIC85.wav" id="2_pf7bt"]
+[ext_resource type="AudioStream" uid="uid://dotdjjle2mcn3" path="res://assets/sfx/TicLA85.wav" id="3_d23r7"]
+[ext_resource type="AudioStream" uid="uid://l7geeh6uhqqg" path="res://assets/sfx/Tic_RE.wav" id="4_nkb21"]
+[ext_resource type="AudioStream" uid="uid://bbmdtft2uvv1i" path="res://assets/sfx/Tic_ReSharp.wav" id="5_h0gmd"]
+[ext_resource type="AudioStream" uid="uid://dgrwgrti4k6is" path="res://assets/sfx/Tic_Do.wav" id="6_r2462"]
+[ext_resource type="AudioStream" uid="uid://buhttm51rm2po" path="res://assets/sfx/BackgroundTest.wav" id="7_am1vo"]
+
+[node name="SoundManager" type="Node" unique_id=935462357]
+script = ExtResource("1_017xh")
+
+[node name="SFX_Tic" type="AudioStreamPlayer" parent="." unique_id=912064091]
+stream = ExtResource("2_pf7bt")
+volume_db = -25.0
+
+[node name="SFX_La" type="AudioStreamPlayer" parent="." unique_id=513632606]
+stream = ExtResource("3_d23r7")
+volume_db = -25.0
+
+[node name="SFX_Re" type="AudioStreamPlayer" parent="." unique_id=2069575450]
+stream = ExtResource("4_nkb21")
+volume_db = -25.0
+
+[node name="SFX_ReSharp" type="AudioStreamPlayer" parent="." unique_id=78357151]
+stream = ExtResource("5_h0gmd")
+volume_db = -25.0
+
+[node name="SFX_Do" type="AudioStreamPlayer" parent="." unique_id=1040658288]
+stream = ExtResource("6_r2462")
+volume_db = -25.0
+
+[node name="background_Music" type="AudioStreamPlayer" parent="." unique_id=45642687]
+stream = ExtResource("7_am1vo")
+volume_db = -25.0
