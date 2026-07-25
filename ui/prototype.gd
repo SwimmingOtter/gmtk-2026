@@ -6,6 +6,7 @@ var current_countdown: Array[int] = Constants.BASE_COUNTDOWN.duplicate()
 var rules: Dictionary = {}
 var tower_rounds: int = 0
 var retry_count: int = 0
+var pressed: bool = false
 
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
@@ -68,6 +69,27 @@ func start_round() -> void:
 func _on_timer_timeout() -> void:
 	# check if any rule were missed
 	_check_rules(false)
+	"""if pressed == false:
+		if current_count_idx == -1:
+			round_lost()
+		else:
+			countdown_label.text = str(current_count_idx)
+			for modifier in RuleManager.get_display_rules(rules):
+				countdown_label.text = modifier.apply(countdown_label.text, current_count_idx)
+				SoundManager.play_count_down_sound()
+	else:
+		if current_count_idx == 0:
+			print("You did it!")
+			round_won()
+			countdown_label.text = str(current_count_idx)
+			for modifier in RuleManager.get_display_rules(rules):
+				countdown_label.text = modifier.apply(countdown_label.text, current_count_idx)
+				SoundManager.play_count_down_sound()
+				pressed = false
+		else:
+			pressed = false
+			print("Nope!")
+			_check_rules(true)"""
 		
 	current_count_idx -= 1
 	if current_count_idx == -1:
@@ -81,6 +103,7 @@ func _on_timer_timeout() -> void:
 
 
 func round_lost(display_text: String = "KO") -> void:
+	SoundManager.wrongSound()
 	if retry_count < Constants.BASE_RETRY_COUNT:
 		retry_count += 1
 		start_round()
@@ -92,9 +115,13 @@ func game_lost(display_text: String = "KO") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
 	timer.stop()
+	SoundManager.stop_moonkey_music()
+	SoundManager.reset_measure_count()
+	SoundManager.gameLost()
 
 	
 func round_won(display_text: String = "You did it!") -> void:
+	SoundManager.correctSound()
 	if len(rules) < Constants.RULE_COUNT:
 		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
 		start_round()
@@ -119,6 +146,8 @@ func _check_rules(pressed: bool) -> void:
 
 
 func _on_button_pressed() -> void:
+	pressed = true
+	SoundManager.button_sound()
 	if current_count_idx == 0:
 		print("You did it!")
 		round_won()
@@ -131,6 +160,7 @@ func _on_win_game_button_pressed() -> void:
 	
 func _on_win_round_button_pressed() -> void:
 	round_won()
+	
 	
 func _on_lose_game_button_pressed() -> void:
 	game_lost()
