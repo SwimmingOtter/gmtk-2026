@@ -10,7 +10,7 @@ enum STATE {
 	PAUSED
 }
 
-@onready var countdown_label: Label = %CountdownLabel
+@onready var countdown_label: RichTextLabel = %CountdownLabel
 var current_count_idx: int = 21 # max of base_countdown
 var round_nb: int = 0
 var rules: Dictionary = {}
@@ -154,7 +154,7 @@ func round_won(display_text: String = "You did it!") -> void:
 	countdown_animation_player.play("ok")
 
 	if len(rules) < Constants.RULE_COUNT:
-		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
+		rules = RuleManager.generate_new_rule(rules, Constants.RULE_COUNT)
 		inter_round(true)
 	else:
 		if tower_rounds < Constants.TOWER_ROUNDS:

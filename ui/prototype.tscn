@@ -396,7 +396,7 @@ alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=930773794]
 modulate = Color(0.92156863, 0.05490196, 0.1254902, 1)
-custom_minimum_size = Vector2(256, 256)
+custom_minimum_size = Vector2(256, 156)
 layout_mode = 2
 size_flags_horizontal = 4
 offset_transform_enabled = true
@@ -405,12 +405,19 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_oxha2")
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=21342089]
 layout_mode = 2
 
-[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer" unique_id=338401176]
+[node name="CountdownLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer" unique_id=2124844935]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/normal_font_size = 100
+theme_override_font_sizes/bold_font_size = 100
+theme_override_font_sizes/bold_italics_font_size = 100
+theme_override_font_sizes/italics_font_size = 100
+theme_override_font_sizes/mono_font_size = 100
+bbcode_enabled = true
 text = "X"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 

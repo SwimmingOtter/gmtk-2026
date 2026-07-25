@@ -1,13 +1,20 @@
-class_name RuleManager extends Node
+﻿class_name RuleManager extends Node
 
-static func generate_new_rule(current_rules: Dictionary, max_count_down: int, rule_count: int):
-	var a = 0
-	var b = 0
-	while a == b:
-		a = randi() % (max_count_down - 1) + 1
-		b = randi() % max_count_down
-	
-	current_rules[next_rule_id(current_rules, rule_count)] = NumberSwapperModifier.new(a, str(b))
+
+static var available_rules: Array = [
+	ComputationDisplay,
+	NumberSwapperModifier,
+	ColorChange
+]
+
+static func generate_new_rule(current_rules: Dictionary, rule_count: int):
+	#pick random rule type
+	var rule_type: GDScript = available_rules.pick_random()
+
+	while rule_type.is_unique() and current_rules.values().any(func(v): return v.get_script() == rule_type):
+		rule_type = available_rules.pick_random()
+
+	current_rules[next_rule_id(current_rules, rule_count)] = rule_type.create_random_instance()
 	EventBus.rules_changed.emit(current_rules)
 	return current_rules
 
