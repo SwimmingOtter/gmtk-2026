@@ -1,10 +1,10 @@
 extends GridContainer
 
-@export var banana_scene : PackedScene
+@export var banana_scene: PackedScene
 
 func _ready() -> void:
 	EventBus.game_started.connect(_display_bananas)
-	EventBus.round_lost.connect(_remove_banana)
+	EventBus.button_pressed_error.connect(_remove_banana)
 	EventBus.round_won.connect(_add_bananas)
 	_remove_bananas()
 

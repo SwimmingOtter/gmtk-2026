@@ -9,6 +9,6 @@ signal game_ended()
 signal game_lost()
 
 signal round_won()
-signal round_lost()
+signal button_pressed_error()
 
 signal countdown_ticked()

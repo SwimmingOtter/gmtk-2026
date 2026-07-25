@@ -6,6 +6,7 @@ extends Control
 enum STATE {
 	NONE,
 	ONGOING,
+	INTER_ROUND,
 	PAUSED
 }
 
@@ -69,7 +70,6 @@ func start_game() -> void:
 	state = STATE.ONGOING
 	print("start")
 	startgame_reveal_animator.play("reveal")
-	SoundManager.play_background_music()
 	tower_rounds = 0
 	round_nb = 0
 	_reset_rules()
@@ -103,7 +103,8 @@ func _on_timer_timeout() -> void:
 	_check_rules(false)
 	current_count_idx -= 1
 	if current_count_idx == -1:
-		round_lost()
+		press_error()
+		inter_round(false)
 	else:
 		countdown_label.text = str(current_count_idx)
 		for modifier in RuleManager.get_display_rules(rules):
@@ -112,34 +113,38 @@ func _on_timer_timeout() -> void:
 		SoundManager.play_count_down_sound()
 
 
-func round_lost(display_text: String = "KO") -> void:
-	SoundManager.wrongSound()
-	EventBus.round_lost.emit()
+func inter_round(go_to_next: bool) -> void:
+	pause_time()
+	state = STATE.INTER_ROUND
+
+
+func press_error(display_text: String = "KO") -> void:
+	
+	EventBus.button_pressed_error.emit()
 	countdown_animation_player.play("error")
+
 	if retry_count < Constants.BASE_RETRY_COUNT:
 		retry_count += 1
-		start_round()
 	else:
 		game_lost(display_text)
+		
 	await countdown_animation_player.animation_finished
 	
 
 func game_lost(display_text: String = "KO") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
-	pause_time()	
-  SoundManager.stop_moonkey_music()
-	SoundManager.reset_measure_count()
-	SoundManager.gameLost()
+	pause_time()
+
 	EventBus.game_ended.emit()
 	EventBus.game_lost.emit()
+	
 	state = STATE.NONE
 	startgame_reveal_animator.play_backwards("reveal")
 	await startgame_reveal_animator.animation_finished
 
 	
 func round_won(display_text: String = "You did it!") -> void:
-  SoundManager.correctSound()
 	EventBus.round_won.emit()
 	round_nb += 1
 	countdown_animation_player.play("ok")
@@ -147,7 +152,7 @@ func round_won(display_text: String = "You did it!") -> void:
 
 	if len(rules) < Constants.RULE_COUNT:
 		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
-		start_round()
+		inter_round(true)
 	else:
 		if tower_rounds < Constants.TOWER_ROUNDS:
 			rules = RuleManager.remove_random_rules(rules, Constants.RULE_COUNT, Constants.RULE_LOST_PER_TOWER)
@@ -167,16 +172,16 @@ func game_won(display_text: String = "You did it!") -> void:
 func _check_rules(pressed: bool) -> void:
 	for rule in RuleManager.get_press_rules(rules):
 		if not rule.check(countdown_label.text, current_count_idx, pressed):
-			round_lost("Wrong press")
+			press_error("Wrong press")
 
 
 func _on_button_pressed() -> void:
-	pressed = true
 	SoundManager.button_sound()
 	if state == STATE.NONE:
 		print("Starting Game")
 		start_game()
-
+	elif state == STATE.INTER_ROUND:
+		start_round()
 	else:
 		if current_count_idx == 0:
 			print("You did it!")
@@ -196,7 +201,7 @@ func _on_lose_game_button_pressed() -> void:
 	game_lost()
 	
 func _on_lose_round_button_pressed() -> void:
-	round_lost()
+	press_error()
 
 func _on_restart_button_pressed() -> void:
 	resume()

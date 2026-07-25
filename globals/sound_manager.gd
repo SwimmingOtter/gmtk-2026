@@ -16,8 +16,22 @@ extends Node
 var measure_music: int = 0
 var first_bar: bool = true
 
+func _ready() -> void:
+	EventBus.game_started.connect(play_background_music)
+	EventBus.button_pressed_error.connect(wrongSound)
+	EventBus.game_lost.connect(handle_game_lost)
+	EventBus.round_won.connect(correctSound)
+
+
+func handle_game_lost():
+	stop_moonkey_music()
+	reset_measure_count()
+	game_lost()
+
+
 func reset_measure_count():
 	measure_music = 0
+
 
 func play_background_music():
 	if not background_music.playing:
@@ -43,7 +57,7 @@ func correctSound():
 func wrongSound():
 	wrong.play()
 	
-func gameLost():
+func game_lost():
 	game_over.play()
 
 func button_sound():
@@ -51,11 +65,11 @@ func button_sound():
 
 func play_count_down_sound():
 	sfx_tic.play()
-	measure_music+=1
+	measure_music += 1
 	if measure_music == 16:
 			measure_music = 0
 			
-	if measure_music ==9 && not bcg_moonkey.playing:
+	if measure_music == 9 && not bcg_moonkey.playing:
 		play_moonkey_music()
 	if first_bar:
 		if measure_music != 7:
@@ -73,5 +87,3 @@ func play_count_down_sound():
 		else: if measure_music == 9:"""
 		if measure_music == 16:
 			measure_music = 0
-			
-			

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://c2fhblhm4fl32"]
 
-[ext_resource type="Script" uid="uid://lnsl00mjsgug" path="res://ui/Prototype.gd" id="2_ps5jn"]
+[ext_resource type="Script" uid="uid://cqte12ccq5f1r" path="res://ui/Prototype.gd" id="2_ps5jn"]
 [ext_resource type="PackedScene" uid="uid://ce16ooxl06bxw" path="res://ui/rule_panel.tscn" id="2_wgcve"]
 [ext_resource type="Script" uid="uid://kdjpyn00swn4" path="res://ui/RulePanel.gd" id="3_ps5jn"]
 [ext_resource type="PackedScene" uid="uid://es3yr2fyf6lw" path="res://ui/pause_menu.tscn" id="4_2yb2i"]
-[ext_resource type="Shader" uid="uid://q86xpr2ycc1o" path="res://assets/shaders/countdown.gdshader" id="4_py1d2"]
-[ext_resource type="Shader" uid="uid://ct4aanhwvhgki" path="res://ui/start_game_transition.gdshader" id="5_py1d2"]
+[ext_resource type="Shader" uid="uid://q86xpr2ycc1o" path="res://assets/shaders/countdown.gdshader" id="5_1cixt"]
+[ext_resource type="Shader" uid="uid://ct4aanhwvhgki" path="res://assets/shaders/start_game_transition.gdshader" id="5_py1d2"]
 [ext_resource type="Script" uid="uid://c06ibit76101h" path="res://ui/banana_container.gd" id="6_m8f3b"]
 [ext_resource type="PackedScene" uid="uid://di73vnbdy3p7k" path="res://game/banana.tscn" id="7_1cixt"]
 
@@ -113,34 +113,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:material:shader_parameter/progression")
+tracks/2/path = NodePath("%CountdownLabel:text")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": ["X"]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("%CountdownLabel:text")
+tracks/3/path = NodePath("../../../ColorRect:material:shader_parameter/progression")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["X"]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../../../ColorRect:material:shader_parameter/progression")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -215,36 +203,56 @@ tracks/1/keys = {
 "values": ["*", ""]
 }
 
-[sub_resource type="Animation" id="Animation_m8f3b"]
-resource_name = "shader_countdown"
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_py1d2"]
+_data = {
+&"RESET": SubResource("Animation_py1d2"),
+&"error": SubResource("Animation_2yb2i"),
+&"ok": SubResource("Animation_1cixt")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t2dwb"]
+shader = ExtResource("5_1cixt")
+shader_parameter/progression = 0.0
+shader_parameter/trail_size = 3.0
+shader_parameter/modulate = Color(0, 0.7058824, 0, 0.67058825)
+shader_parameter/clean_loop = true
+
+[sub_resource type="Animation" id="Animation_eqk5p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progression")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_57obc"]
+resource_name = "tic"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:material:shader_parameter/progression")
+tracks/0/path = NodePath(".:material:shader_parameter/progression")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.0, 1.0]
+"values": [0.0, 0.999999977648]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_py1d2"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5t847"]
 _data = {
-&"RESET": SubResource("Animation_py1d2"),
-&"error": SubResource("Animation_2yb2i"),
-&"ok": SubResource("Animation_1cixt"),
-&"shader_countdown": SubResource("Animation_m8f3b")
+&"RESET": SubResource("Animation_eqk5p"),
+&"tic": SubResource("Animation_57obc")
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2yb2i"]
-shader = ExtResource("4_py1d2")
-shader_parameter/progression = 0.0
-shader_parameter/trail_size = 3.0
-shader_parameter/modulate = Color(0.27450982, 0.8666667, 0.32156864, 0.4509804)
-shader_parameter/clean_loop = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3figq"]
 
@@ -332,16 +340,15 @@ vertical_alignment = 1
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_py1d2")
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=669397007]
-material = SubResource("ShaderMaterial_2yb2i")
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=83130022]
+material = SubResource("ShaderMaterial_t2dwb")
 layout_mode = 2
 color = Color(0, 0, 0, 0)
 
-[node name="ShaderAnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/PanelContainer/ColorRect" unique_id=1167197775]
+[node name="ShaderAnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/PanelContainer/ColorRect" unique_id=1902125688]
 unique_name_in_owner = true
-root_node = NodePath("../..")
-libraries/ = SubResource("AnimationLibrary_py1d2")
-autoplay = &"shader_countdown"
+libraries/ = SubResource("AnimationLibrary_5t847")
+autoplay = &"tic"
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2" unique_id=1588139827]
 layout_mode = 2
