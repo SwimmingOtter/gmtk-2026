@@ -1,26 +1,21 @@
 [gd_scene format=3 uid="uid://7c3aunokv023"]
 
 [ext_resource type="Script" uid="uid://df617gj8mfue0" path="res://globals/sound_manager.gd" id="1_017xh"]
-[ext_resource type="AudioStream" uid="uid://x41xqerxaavk" path="res://assets/sfx/TIC85.wav" id="2_pf7bt"]
-[ext_resource type="AudioStream" uid="uid://dotdjjle2mcn3" path="res://assets/sfx/TicLA85.wav" id="3_d23r7"]
-[ext_resource type="AudioStream" uid="uid://l7geeh6uhqqg" path="res://assets/sfx/Tic_RE.wav" id="4_nkb21"]
-[ext_resource type="AudioStream" uid="uid://bbmdtft2uvv1i" path="res://assets/sfx/Tic_ReSharp.wav" id="5_h0gmd"]
-[ext_resource type="AudioStream" uid="uid://dgrwgrti4k6is" path="res://assets/sfx/Tic_Do.wav" id="6_r2462"]
-[ext_resource type="AudioStream" uid="uid://hcetpqh8xc3q" path="res://assets/sfx/BCG.wav" id="7_pf7bt"]
-[ext_resource type="AudioStream" uid="uid://clj6h4nshjvby" path="res://assets/sfx/moonkey3.wav" id="8_d23r7"]
-[ext_resource type="AudioStream" uid="uid://540p2vnk8b0c" path="res://assets/sfx/Blabla2.wav" id="9_evlv8"]
-[ext_resource type="AudioStream" uid="uid://b4bth6tio1ewm" path="res://assets/sfx/Boing1.wav" id="9_nkb21"]
-[ext_resource type="AudioStream" uid="uid://2nffvvc6mhdq" path="res://assets/sfx/MoonFirstTic.wav" id="10_r2462"]
-[ext_resource type="AudioStream" uid="uid://chnkxm6y5hmq0" path="res://assets/sfx/Moontic.wav" id="11_am1vo"]
-[ext_resource type="AudioStream" uid="uid://bordeleo1o0oo" path="res://assets/sfx/faux.wav" id="12_7yfr0"]
+[ext_resource type="AudioStream" uid="uid://x41xqerxaavk" path="res://assets/sfx/CountDownTic.wav" id="2_pf7bt"]
+[ext_resource type="AudioStream" uid="uid://clj6h4nshjvby" path="res://assets/sfx/moonkeyBCGmusic.wav" id="8_d23r7"]
+[ext_resource type="AudioStream" uid="uid://540p2vnk8b0c" path="res://assets/sfx/MoonkeyTalk2.wav" id="9_evlv8"]
+[ext_resource type="AudioStream" uid="uid://b4bth6tio1ewm" path="res://assets/sfx/MoonkeyTalk1.wav" id="9_nkb21"]
+[ext_resource type="AudioStream" uid="uid://2nffvvc6mhdq" path="res://assets/sfx/ButtonPress.wav" id="10_r2462"]
+[ext_resource type="AudioStream" uid="uid://chnkxm6y5hmq0" path="res://assets/sfx/CorrectPress.wav" id="11_am1vo"]
+[ext_resource type="AudioStream" uid="uid://bordeleo1o0oo" path="res://assets/sfx/WrongPress.wav" id="12_7yfr0"]
 [ext_resource type="AudioStream" uid="uid://tmjq7x1r346x" path="res://assets/sfx/GameLost.wav" id="13_evlv8"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nkb21"]
 random_pitch = 1.10605
 streams_count = 2
-stream_0/stream = ExtResource("9_nkb21")
-stream_0/weight = 0.0
-stream_1/stream = ExtResource("9_evlv8")
+stream_0/stream = ExtResource("9_evlv8")
+stream_1/stream = ExtResource("9_nkb21")
+stream_1/weight = 0.0
 
 [node name="SoundManager" type="Node" unique_id=935462357]
 script = ExtResource("1_017xh")
@@ -28,26 +23,6 @@ script = ExtResource("1_017xh")
 [node name="SFX_Tic" type="AudioStreamPlayer" parent="." unique_id=912064091]
 stream = ExtResource("2_pf7bt")
 volume_db = -21.351
-
-[node name="SFX_La" type="AudioStreamPlayer" parent="." unique_id=513632606]
-stream = ExtResource("3_d23r7")
-volume_db = -25.0
-
-[node name="SFX_Re" type="AudioStreamPlayer" parent="." unique_id=2069575450]
-stream = ExtResource("4_nkb21")
-volume_db = -25.0
-
-[node name="SFX_ReSharp" type="AudioStreamPlayer" parent="." unique_id=78357151]
-stream = ExtResource("5_h0gmd")
-volume_db = -25.0
-
-[node name="SFX_Do" type="AudioStreamPlayer" parent="." unique_id=1040658288]
-stream = ExtResource("6_r2462")
-volume_db = -25.0
-
-[node name="background_Music" type="AudioStreamPlayer" parent="." unique_id=45642687]
-stream = ExtResource("7_pf7bt")
-volume_db = -80.0
 
 [node name="bcg_moonkey" type="AudioStreamPlayer" parent="." unique_id=1831834358]
 stream = ExtResource("8_d23r7")
@@ -60,20 +35,18 @@ volume_db = -35.852
 pitch_scale = 0.99
 max_polyphony = 4
 
-[node name="MoonkeyFirst" type="AudioStreamPlayer" parent="." unique_id=729719619]
+[node name="ButtonPress" type="AudioStreamPlayer" parent="." unique_id=729719619]
 stream = ExtResource("10_r2462")
 volume_db = -24.632
 
-[node name="MoonkeySecond" type="AudioStreamPlayer" parent="." unique_id=1391837816]
+[node name="CorrectPress" type="AudioStreamPlayer" parent="." unique_id=1391837816]
 stream = ExtResource("11_am1vo")
 volume_db = -29.193
 
-[node name="Wrong" type="AudioStreamPlayer" parent="." unique_id=2113605322]
+[node name="WrongPress" type="AudioStreamPlayer" parent="." unique_id=2113605322]
 stream = ExtResource("12_7yfr0")
 volume_db = -21.517
 
 [node name="GameOver" type="AudioStreamPlayer" parent="." unique_id=1856710694]
 stream = ExtResource("13_evlv8")
 volume_db = -19.158
-
-[node name="Blabla2" type="AudioStreamPlayer" parent="." unique_id=640086765]
