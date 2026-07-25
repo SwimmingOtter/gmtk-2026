@@ -4,8 +4,8 @@ class_name CountdownManager extends Node
 static func generate_countdown(round_id: int) -> int:
 	if round_id == 0: # First Round
 		return 5
-	elif round_id < 2:
-		return _generate_randomized_countdown(round_id, 0)
+	elif round_id < 5:
+		return _generate_randomized_countdown(5, 1)
 	elif round_id < 10:
 		return _generate_randomized_countdown(round_id, 1)
 	elif round_id < 15:
@@ -14,7 +14,7 @@ static func generate_countdown(round_id: int) -> int:
 
 
 static func _generate_randomized_countdown(max_nb: int, random_delta: int) -> int:
-	var delta: int  = 0
+	var delta: int = 0
 	if random_delta:
 		delta = randi() % (random_delta * 2) - random_delta # random int between [-random_delta, random_delta]
 	

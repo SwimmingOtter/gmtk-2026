@@ -96,6 +96,7 @@ func start_round() -> void:
 	
 	current_count_idx = CountdownManager.generate_countdown(round_nb)
 	countdown_label.text = str(current_count_idx)
+	state = STATE.ONGOING
 	start_time()
 
 func _on_timer_timeout() -> void:
@@ -119,8 +120,6 @@ func inter_round(go_to_next: bool) -> void:
 
 
 func press_error(display_text: String = "KO") -> void:
-	
-	EventBus.button_pressed_error.emit()
 	countdown_animation_player.play("error")
 
 	if retry_count < Constants.BASE_RETRY_COUNT:
@@ -129,6 +128,7 @@ func press_error(display_text: String = "KO") -> void:
 		game_lost(display_text)
 		
 	await countdown_animation_player.animation_finished
+	EventBus.button_pressed_error.emit()
 	
 
 func game_lost(display_text: String = "KO") -> void:
@@ -148,7 +148,6 @@ func round_won(display_text: String = "You did it!") -> void:
 	EventBus.round_won.emit()
 	round_nb += 1
 	countdown_animation_player.play("ok")
-	await countdown_animation_player.animation_finished
 
 	if len(rules) < Constants.RULE_COUNT:
 		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
