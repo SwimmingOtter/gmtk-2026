@@ -2,12 +2,20 @@ extends Control
 
 @export var timer_tic_time: float = 0.72
 
+
+enum STATE {
+	NONE,
+	ONGOING,
+	PAUSED
+}
+
 @onready var countdown_label: Label = %CountdownLabel
 var current_count_idx: int = 21 # max of base_countdown
 var current_countdown: Array[int] = Constants.BASE_COUNTDOWN.duplicate()
 var rules: Dictionary = {}
 var tower_rounds: int = 0
 var retry_count: int = 0
+var state: STATE = STATE.NONE
 
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
@@ -19,10 +27,12 @@ var retry_count: int = 0
 @onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
 
 func _ready() -> void:
-	restart_panel_container.visible = true
+	restart_panel_container.visible = false
 	countdown_animation_player.play("ok")
 	cheat_panel.visible = Constants.DEBUG_MODE
+	state = STATE.NONE
 	_set_timer_speed(timer_tic_time)
+	%ColorRect.visible = true
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -37,6 +47,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func resume() -> void:
 	pause_menu.visible = false
 	start_time()
+	state = STATE.ONGOING
+	EventBus.game_resumed.emit()
 
 
 func start_time() -> void:
@@ -47,10 +59,15 @@ func start_time() -> void:
 func pause_time() -> void:
 	timer.stop()
 	shader_animation_player.pause()
+	state = STATE.PAUSED
+	EventBus.game_paused.emit()
 
 
 func start_game() -> void:
+	EventBus.game_started.emit()
+	state = STATE.ONGOING
 	print("start")
+	countdown_animation_player.play("reveal_game")
 	SoundManager.play_background_music()
 	tower_rounds = 0
 	_reset_rules()
@@ -107,6 +124,10 @@ func game_lost(display_text: String = "KO") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
 	pause_time()
+	EventBus.game_ended.emit()
+	EventBus.game_lost.emit()
+	state = STATE.NONE
+	countdown_animation_player.play_backwards("reveal_game")
 
 	
 func round_won(display_text: String = "You did it!") -> void:
@@ -128,6 +149,8 @@ func game_won(display_text: String = "You did it!") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
 	pause_time()
+	EventBus.game_ended.emit()
+	state = STATE.NONE
 
 
 func _check_rules(pressed: bool) -> void:
@@ -137,12 +160,16 @@ func _check_rules(pressed: bool) -> void:
 
 
 func _on_button_pressed() -> void:
-	if current_count_idx == 0:
-		print("You did it!")
-		round_won()
+	if state == STATE.NONE:
+		print("Starting Game")
+		start_game()
 	else:
-		print("Nope!")
-		_check_rules(true)
+		if current_count_idx == 0:
+			print("You did it!")
+			round_won()
+		else:
+			print("Nope!")
+			_check_rules(true)
 
 func _on_win_game_button_pressed() -> void:
 	game_won()

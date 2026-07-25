@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://di73vnbdy3p7k"]
+
+[ext_resource type="Texture2D" uid="uid://c81xjofibcofa" path="res://assets/tilesheets/banane-Sheet.png" id="1_sk2wg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk2wg"]
+atlas = ExtResource("1_sk2wg")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2aqsm"]
+atlas = ExtResource("1_sk2wg")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5xy8"]
+atlas = ExtResource("1_sk2wg")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rung0"]
+atlas = ExtResource("1_sk2wg")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g00h5"]
+atlas = ExtResource("1_sk2wg")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m2va7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk2wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2aqsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5xy8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rung0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g00h5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Banana" type="TextureRect" unique_id=827257719]
+custom_minimum_size = Vector2(24, 24)
+scale = Vector2(2, 2)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1361162782]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1086274120]
+handle_input_locally = false
+size = Vector2i(24, 24)
+render_target_update_mode = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewportContainer/SubViewport" unique_id=192278767]
+position = Vector2(12, 12)
+sprite_frames = SubResource("SpriteFrames_m2va7")
+autoplay = "default"
+frame_progress = 0.40288118

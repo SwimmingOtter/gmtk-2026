@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b2mck0mtbhv3p" path="res://game/game.gd" id="1_y36n6"]
 [ext_resource type="Texture2D" uid="uid://fvuuys00xmpr" path="res://assets/background/background.png" id="2_dakft"]
 [ext_resource type="PackedScene" uid="uid://b8e3ka4joxb0y" path="res://ui/start_menu.tscn" id="2_vasa2"]
+[ext_resource type="Script" uid="uid://dxbcknk756rl8" path="res://game/monkey_manager.gd" id="3_l8g03"]
 [ext_resource type="Texture2D" uid="uid://c75tuxgab2dwr" path="res://assets/background/midground.png" id="3_u5opy"]
 [ext_resource type="Texture2D" uid="uid://dgiglq8edlw3g" path="res://assets/background/foreground.png" id="4_y36n6"]
 
@@ -27,25 +28,25 @@ size = Vector2(321.5, 149)
 
 [node name="game" type="Node2D" unique_id=154813523]
 script = ExtResource("1_y36n6")
-monkey_scene = ExtResource("1_u5opy")
-monkey_count = 32
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1901600331]
 layer = 0
 
-[node name="Monkeys" type="Node2D" parent="CanvasLayer" unique_id=299239686]
+[node name="MonkeyManager" type="Node2D" parent="CanvasLayer" unique_id=299239686]
 unique_name_in_owner = true
 y_sort_enabled = true
+script = ExtResource("3_l8g03")
+monkey_scene = ExtResource("1_u5opy")
 
-[node name="Monkey" parent="CanvasLayer/Monkeys" unique_id=426823303 groups=["monkey"] instance=ExtResource("1_u5opy")]
+[node name="Monkey" parent="CanvasLayer/MonkeyManager" unique_id=426823303 groups=["monkey"] instance=ExtResource("1_u5opy")]
 z_index = 1
 position = Vector2(489, 560)
 
-[node name="Monkey2" parent="CanvasLayer/Monkeys" unique_id=47853333 groups=["monkey"] instance=ExtResource("1_u5opy")]
+[node name="Monkey2" parent="CanvasLayer/MonkeyManager" unique_id=47853333 groups=["monkey"] instance=ExtResource("1_u5opy")]
 z_index = 1
 position = Vector2(525, 500)
 
-[node name="Monkey3" parent="CanvasLayer/Monkeys" unique_id=2039760764 groups=["monkey"] instance=ExtResource("1_u5opy")]
+[node name="Monkey3" parent="CanvasLayer/MonkeyManager" unique_id=2039760764 groups=["monkey"] instance=ExtResource("1_u5opy")]
 z_index = 1
 position = Vector2(525, 500)
 
