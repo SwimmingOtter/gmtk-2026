@@ -101,7 +101,6 @@ func start_round() -> void:
 func _on_timer_timeout() -> void:
 	# check if any rule were missed
 	_check_rules(false)
-		
 	current_count_idx -= 1
 	if current_count_idx == -1:
 		round_lost()
@@ -114,6 +113,7 @@ func _on_timer_timeout() -> void:
 
 
 func round_lost(display_text: String = "KO") -> void:
+	SoundManager.wrongSound()
 	EventBus.round_lost.emit()
 	countdown_animation_player.play("error")
 	if retry_count < Constants.BASE_RETRY_COUNT:
@@ -127,7 +127,10 @@ func round_lost(display_text: String = "KO") -> void:
 func game_lost(display_text: String = "KO") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
-	pause_time()
+	pause_time()	
+  SoundManager.stop_moonkey_music()
+	SoundManager.reset_measure_count()
+	SoundManager.gameLost()
 	EventBus.game_ended.emit()
 	EventBus.game_lost.emit()
 	state = STATE.NONE
@@ -136,6 +139,7 @@ func game_lost(display_text: String = "KO") -> void:
 
 	
 func round_won(display_text: String = "You did it!") -> void:
+  SoundManager.correctSound()
 	EventBus.round_won.emit()
 	round_nb += 1
 	countdown_animation_player.play("ok")
@@ -167,9 +171,12 @@ func _check_rules(pressed: bool) -> void:
 
 
 func _on_button_pressed() -> void:
+	pressed = true
+	SoundManager.button_sound()
 	if state == STATE.NONE:
 		print("Starting Game")
 		start_game()
+
 	else:
 		if current_count_idx == 0:
 			print("You did it!")
@@ -183,6 +190,7 @@ func _on_win_game_button_pressed() -> void:
 	
 func _on_win_round_button_pressed() -> void:
 	round_won()
+	
 	
 func _on_lose_game_button_pressed() -> void:
 	game_lost()
