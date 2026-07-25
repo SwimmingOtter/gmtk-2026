@@ -17,6 +17,67 @@ shader_parameter/ellipsis_a = 0.10000000149012
 shader_parameter/ellipsis_b = 0.08999999798832
 shader_parameter/opening_speed = 0.60000000894072
 
+[sub_resource type="Animation" id="Animation_7kgqe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progression")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rvljv"]
+resource_name = "reveal"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progression")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.001, 1.9, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7kgqe"]
+_data = {
+&"RESET": SubResource("Animation_7kgqe"),
+&"reveal": SubResource("Animation_rvljv")
+}
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxha2"]
 bg_color = Color(0.23921569, 0.39607844, 0.38039216, 1)
 border_width_left = 5
@@ -154,22 +215,6 @@ tracks/1/keys = {
 "values": ["*", ""]
 }
 
-[sub_resource type="Animation" id="Animation_eqk5p"]
-resource_name = "reveal_game"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../../ColorRect:material:shader_parameter/progression")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.999999977648]
-}
-
 [sub_resource type="Animation" id="Animation_m8f3b"]
 resource_name = "shader_countdown"
 loop_mode = 1
@@ -191,7 +236,6 @@ _data = {
 &"RESET": SubResource("Animation_py1d2"),
 &"error": SubResource("Animation_2yb2i"),
 &"ok": SubResource("Animation_1cixt"),
-&"reveal_game": SubResource("Animation_eqk5p"),
 &"shader_countdown": SubResource("Animation_m8f3b")
 }
 
@@ -236,6 +280,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0, 0, 1)
+
+[node name="StartgameRevealAnimator" type="AnimationPlayer" parent="ColorRect" unique_id=1960741150]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_7kgqe")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=567294436]
 layout_mode = 1

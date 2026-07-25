@@ -11,7 +11,7 @@ enum STATE {
 
 @onready var countdown_label: Label = %CountdownLabel
 var current_count_idx: int = 21 # max of base_countdown
-var current_countdown: Array[int] = Constants.BASE_COUNTDOWN.duplicate()
+var round_nb: int = 0
 var rules: Dictionary = {}
 var tower_rounds: int = 0
 var retry_count: int = 0
@@ -25,6 +25,7 @@ var state: STATE = STATE.NONE
 @onready var timer: Timer = $Timer
 @onready var countdown_animation_player: AnimationPlayer = %CountdownAnimationPlayer
 @onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
+@onready var startgame_reveal_animator: AnimationPlayer = %StartgameRevealAnimator
 
 func _ready() -> void:
 	restart_panel_container.visible = false
@@ -67,11 +68,13 @@ func start_game() -> void:
 	EventBus.game_started.emit()
 	state = STATE.ONGOING
 	print("start")
-	countdown_animation_player.play("reveal_game")
+	startgame_reveal_animator.play("reveal")
 	SoundManager.play_background_music()
 	tower_rounds = 0
+	round_nb = 0
 	_reset_rules()
 	restart_panel_container.visible = false
+	await startgame_reveal_animator.animation_finished
 	start_tower_round()
 
 
@@ -91,7 +94,7 @@ func start_round() -> void:
 	print("Retry count: " + str(retry_count) + " / " + str(Constants.BASE_RETRY_COUNT))
 	print("Rules count: " + str(len(rules)) + " / " + str(Constants.RULE_COUNT))
 	
-	current_count_idx = Constants.BASE_START_COUNT
+	current_count_idx = CountdownManager.generate_countdown(round_nb)
 	countdown_label.text = str(current_count_idx)
 	start_time()
 
@@ -111,6 +114,7 @@ func _on_timer_timeout() -> void:
 
 
 func round_lost(display_text: String = "KO") -> void:
+	EventBus.round_lost.emit()
 	countdown_animation_player.play("error")
 	if retry_count < Constants.BASE_RETRY_COUNT:
 		retry_count += 1
@@ -127,10 +131,13 @@ func game_lost(display_text: String = "KO") -> void:
 	EventBus.game_ended.emit()
 	EventBus.game_lost.emit()
 	state = STATE.NONE
-	countdown_animation_player.play_backwards("reveal_game")
+	startgame_reveal_animator.play_backwards("reveal")
+	await startgame_reveal_animator.animation_finished
 
 	
 func round_won(display_text: String = "You did it!") -> void:
+	EventBus.round_won.emit()
+	round_nb += 1
 	countdown_animation_player.play("ok")
 	await countdown_animation_player.animation_finished
 
