@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://ce16ooxl06bxw" path="res://ui/rule_panel.tscn" id="2_wgcve"]
 [ext_resource type="Script" uid="uid://kdjpyn00swn4" path="res://ui/RulePanel.gd" id="3_ps5jn"]
 [ext_resource type="PackedScene" uid="uid://es3yr2fyf6lw" path="res://ui/pause_menu.tscn" id="4_2yb2i"]
+[ext_resource type="Shader" uid="uid://b5wq3kwf1ld3b" path="res://assets/shaders/glitch.gdshader" id="4_m8f3b"]
+[ext_resource type="Shader" uid="uid://q86xpr2ycc1o" path="res://assets/shaders/countdown.gdshader" id="4_py1d2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxha2"]
 bg_color = Color(0.23730722, 0.39497346, 0.38122904, 0.57254905)
@@ -11,6 +13,57 @@ border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
+
+[sub_resource type="Animation" id="Animation_py1d2"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progression")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.001, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_2yb2i"]
+resource_name = "countdown"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/progression")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_py1d2"]
+_data = {
+&"RESET": SubResource("Animation_py1d2"),
+&"countdown": SubResource("Animation_2yb2i")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2yb2i"]
+shader = ExtResource("4_py1d2")
+shader_parameter/progression = 0.0
+shader_parameter/trail_size = 3.0
+shader_parameter/modulate = Color(0.27450982, 0.8666667, 0.32156864, 0.4509804)
+shader_parameter/clean_loop = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxha2"]
+shader = ExtResource("4_m8f3b")
+shader_parameter/strength = 8.0
+shader_parameter/burst_chance = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_t2dwb"]
+viewport_path = NodePath("HBoxContainer/VBoxContainer2/Control/SubViewport")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3figq"]
 
@@ -51,15 +104,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=930773794]
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer2" unique_id=485559913]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/VBoxContainer2/Control" unique_id=1698637398]
+size = Vector2i(256, 200)
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2/Control/SubViewport" unique_id=930773794]
+offset_right = 256.0
+offset_bottom = 200.0
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_oxha2")
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=21342089]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer" unique_id=21342089]
 layout_mode = 2
 
-[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer" unique_id=338401176]
+[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer/MarginContainer" unique_id=338401176]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -67,6 +128,24 @@ theme_override_font_sizes/font_size = 150
 text = "00"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer" unique_id=957132576]
+libraries/ = SubResource("AnimationLibrary_py1d2")
+autoplay = &"countdown"
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer" unique_id=669397007]
+material = SubResource("ShaderMaterial_2yb2i")
+layout_mode = 2
+color = Color(0, 0, 0, 0)
+
+[node name="GlitchRect" type="TextureRect" parent="HBoxContainer/VBoxContainer2/Control" unique_id=1769233003]
+material = SubResource("ShaderMaterial_oxha2")
+layout_mode = 0
+offset_top = -5.0
+offset_right = 637.0
+offset_bottom = -5.0
+texture = SubResource("ViewportTexture_t2dwb")
+stretch_mode = 3
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2" unique_id=1588139827]
 layout_mode = 2
