@@ -4,27 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://c2fhblhm4fl32" path="res://ui/prototype.tscn" id="1_l1rk1"]
 [ext_resource type="PackedScene" uid="uid://dp1u8c6sc0a0q" path="res://game/monkeys/monkey.tscn" id="1_u5opy"]
 [ext_resource type="Script" uid="uid://b2mck0mtbhv3p" path="res://game/game.gd" id="1_y36n6"]
-[ext_resource type="Texture2D" uid="uid://fvuuys00xmpr" path="res://assets/background/background.png" id="2_dakft"]
 [ext_resource type="PackedScene" uid="uid://b8e3ka4joxb0y" path="res://ui/start_menu.tscn" id="2_vasa2"]
 [ext_resource type="Script" uid="uid://dxbcknk756rl8" path="res://game/monkey_manager.gd" id="3_l8g03"]
-[ext_resource type="Texture2D" uid="uid://c75tuxgab2dwr" path="res://assets/background/midground.png" id="3_u5opy"]
-[ext_resource type="Texture2D" uid="uid://dgiglq8edlw3g" path="res://assets/background/foreground.png" id="4_y36n6"]
+[ext_resource type="Texture2D" uid="uid://rrbib6f22nel" path="res://assets/background/sol__arbres.png" id="5_y36n6"]
+[ext_resource type="Texture2D" uid="uid://cxq2jboulp7p3" path="res://assets/background/feuilage.png" id="6_l8g03"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_t2dwb"]
-normal = Vector2(0.15596257, 0.9877629)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y36n6"]
-normal = Vector2(0.99861777, 0.052558832)
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_l8g03"]
-normal = Vector2(0.12716432, 0.99188167)
-distance = -9.850868
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j8tme"]
-normal = Vector2(-0.98307896, -0.18318242)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7mtq"]
-size = Vector2(321.5, 149)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2va7"]
+size = Vector2(315, 141)
 
 [node name="game" type="Node2D" unique_id=154813523]
 script = ExtResource("1_y36n6")
@@ -52,44 +38,17 @@ position = Vector2(525, 500)
 
 [node name="Walls" type="Node" parent="CanvasLayer" unique_id=2052708362]
 
-[node name="Area2D" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=1672758078]
-collision_mask = 2
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasLayer/Walls" unique_id=163673834]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D" unique_id=1015450404]
-position = Vector2(986, 209)
-shape = SubResource("WorldBoundaryShape2D_t2dwb")
-one_way_collision = true
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="CanvasLayer/Walls/StaticBody2D" unique_id=1736683085]
+position = Vector2(-33, -39)
+polygon = PackedVector2Array(-3, 0, 2162, -10, 2172, 1204, 1917, 1210, 1995, 897, 1805, 611, 1505, 426, 1268, 388, 1228, 426, 840, 420, 680, 520, 451, 520, 318, 619, 269, 715, 137, 926, 142, 1119, 250, 1234, -34, 1228)
 
-[node name="Area2D2" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=45224169]
-collision_mask = 2
+[node name="StaticBody2D2" type="StaticBody2D" parent="CanvasLayer/Walls" unique_id=509063809]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D2" unique_id=1751107591]
-position = Vector2(-6, 551)
-shape = SubResource("WorldBoundaryShape2D_y36n6")
-one_way_collision = true
-
-[node name="Area2D3" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=871847424]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D3" unique_id=914993920]
-position = Vector2(1079, 1038)
-shape = SubResource("WorldBoundaryShape2D_l8g03")
-
-[node name="Area2D4" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=500769059]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D4" unique_id=1296423668]
-position = Vector2(1811, 594)
-shape = SubResource("WorldBoundaryShape2D_j8tme")
-one_way_collision = true
-
-[node name="Area2D5" type="RigidBody2D" parent="CanvasLayer/Walls" unique_id=200883715]
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/Area2D5" unique_id=1902989702]
-position = Vector2(958.25, 646.5)
-shape = SubResource("RectangleShape2D_d7mtq")
-one_way_collision = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Walls/StaticBody2D2" unique_id=1423952537]
+position = Vector2(955.5, 691.5)
+shape = SubResource("RectangleShape2D_m2va7")
 
 [node name="Background" type="Control" parent="CanvasLayer" unique_id=419814525 node_paths=PackedStringArray("layers")]
 z_as_relative = false
@@ -111,7 +70,7 @@ offset_top = -20.0
 offset_right = 1900.0
 offset_bottom = 1060.0
 scale = Vector2(1.1, 1.1)
-texture = ExtResource("2_dakft")
+texture = ExtResource("5_y36n6")
 
 [node name="Midground" type="TextureRect" parent="CanvasLayer/Background" unique_id=310735533]
 z_index = 2
@@ -122,7 +81,6 @@ offset_top = -50.0
 offset_right = 1870.0
 offset_bottom = 1030.0
 scale = Vector2(1.1, 1.1)
-texture = ExtResource("3_u5opy")
 
 [node name="Foreground" type="TextureRect" parent="CanvasLayer/Background" unique_id=1825623861]
 z_index = 3
@@ -133,11 +91,13 @@ offset_top = -60.0
 offset_right = 1860.0
 offset_bottom = 1020.0
 scale = Vector2(1.15, 1.15)
-texture = ExtResource("4_y36n6")
+texture = ExtResource("6_l8g03")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=18863404]
 
 [node name="prototype" parent="CanvasLayer2" unique_id=1857927859 instance=ExtResource("1_l1rk1")]
+offset_top = -1.0
+offset_bottom = -1.0
 
 [node name="StartMenu" parent="CanvasLayer2" unique_id=1241606550 instance=ExtResource("2_vasa2")]
 visible = false

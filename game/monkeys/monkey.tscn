@@ -149,8 +149,8 @@ fill = 1
 fill_from = Vector2(0.517094, 0.5)
 fill_to = Vector2(1, 0.4636752)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7mtq"]
-size = Vector2(101, 104)
+[sub_resource type="CircleShape2D" id="CircleShape2D_y36n6"]
+radius = 14.142136
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wngqp"]
 atlas = ExtResource("3_scfsu")
@@ -321,8 +321,8 @@ scale = Vector2(3.5, 1)
 texture = SubResource("GradientTexture2D_t2dwb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1467453845]
-position = Vector2(3.5, 13)
-shape = SubResource("RectangleShape2D_d7mtq")
+position = Vector2(1, 59)
+shape = SubResource("CircleShape2D_y36n6")
 
 [node name="Timer" type="Timer" parent="." unique_id=301654112]
 unique_name_in_owner = true

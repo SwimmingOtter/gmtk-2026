@@ -60,7 +60,7 @@ func start_time() -> void:
 
 func pause_time() -> void:
 	timer.stop()
-	shader_animation_player.pause()
+	#shader_animation_player.pause()
 	state = STATE.PAUSED
 	EventBus.game_paused.emit()
 
@@ -117,6 +117,10 @@ func _on_timer_timeout() -> void:
 func inter_round(go_to_next: bool) -> void:
 	pause_time()
 	state = STATE.INTER_ROUND
+	if go_to_next:
+		%TransitionCountdownAnimationPlayer.play("new_rule")
+	else:
+		%TransitionCountdownAnimationPlayer.play("again")
 
 
 func press_error(display_text: String = "KO") -> void:

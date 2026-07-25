@@ -85,6 +85,84 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 
+[sub_resource type="Animation" id="Animation_5t847"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%CountdownLabel/../..:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.92156863, 0.05490196, 0.1254902, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0380v"]
+resource_name = "again"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 0.5, 0.8, 1.0666667, 1.3666667, 1.9333333, 2.9333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["", "X-X", "=-=", "X-X", "=-=", "", "AGAIN!", ""]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%CountdownLabel/../..:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(0.92156863, 0.05490196, 0.1254902, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jnifr"]
+resource_name = "new_rule"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3640451, 0.44096234, 0.84457123, 0.8877183, 1.0666667, 1.2333333, 2.5, 2.6333334, 2.7, 2.8121583, 2.8625567, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["", "+", "+1", "+1 ", "+1 R", "+1 Rul", "+1 Rule", "1 Rule", " Rule", "Rule", "ule", "e", ""]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0380v"]
+_data = {
+&"RESET": SubResource("Animation_5t847"),
+&"again": SubResource("Animation_0380v"),
+&"new_rule": SubResource("Animation_jnifr")
+}
+
 [sub_resource type="Animation" id="Animation_py1d2"]
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -335,6 +413,10 @@ theme_override_font_sizes/font_size = 150
 text = "X"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TransitionCountdownAnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer/CountdownLabel" unique_id=1980797494]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_0380v")
 
 [node name="CountdownAnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=957132576]
 unique_name_in_owner = true

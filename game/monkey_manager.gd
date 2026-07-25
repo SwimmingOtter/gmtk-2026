@@ -17,7 +17,7 @@ func spawn_monkeys():
 		var monkey = monkey_scene.instantiate()
 		self.add_child(monkey)
 		
-		var angle: int = randi() % 360 - 180
+		var angle: int = randi() % 180
 		var direction = Vector2(cos(angle * PI / 180), sin(angle * PI / 180))
 		direction = direction.normalized()
-		monkey.position = Vector2(960, 540) + direction * randf_range(200, 400)
+		monkey.position = Vector2(960, 540) + direction * randf_range(300, 500)
