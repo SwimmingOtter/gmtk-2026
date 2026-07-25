@@ -1,2 +1,16 @@
-# Normalize EOL for all files that Git considers text files.
-* text=auto eol=lf
+# Auto detect text files and normalize line endings to LF
+* text=auto
+
+# Binary files - prevent line ending conversion
+*.png binary
+*.wav binary
+*.otf binary
+*.import binary
+
+# Text files - enforce LF
+*.gd text eol=lf
+*.tscn text eol=lf
+*.tres text eol=lf
+*.gdshader text eol=lf
+*.godot text eol=lf
+*.md text eol=lf
