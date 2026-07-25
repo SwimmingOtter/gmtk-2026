@@ -100,6 +100,7 @@ func round_lost(display_text: String = "KO") -> void:
 		start_round()
 	else:
 		game_lost(display_text)
+	await countdown_animation_player.animation_finished
 	
 
 func game_lost(display_text: String = "KO") -> void:
@@ -110,6 +111,8 @@ func game_lost(display_text: String = "KO") -> void:
 	
 func round_won(display_text: String = "You did it!") -> void:
 	countdown_animation_player.play("ok")
+	await countdown_animation_player.animation_finished
+
 	if len(rules) < Constants.RULE_COUNT:
 		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
 		start_round()

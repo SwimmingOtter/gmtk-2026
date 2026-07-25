@@ -50,6 +50,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%CountdownLabel:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["X"]
+}
 
 [sub_resource type="Animation" id="Animation_2yb2i"]
 resource_name = "error"
@@ -78,6 +90,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-10, 0), Vector2(10, 0), Vector2(0, 0), Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%CountdownLabel:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["X", ""]
+}
 
 [sub_resource type="Animation" id="Animation_1cixt"]
 resource_name = "ok"
@@ -93,6 +117,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.38431373, 0.9372549, 0.3882353, 1), Color(0.3843137, 0.9372549, 0.38823527, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%CountdownLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06666667, 0.2274775),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["*", ""]
 }
 
 [sub_resource type="Animation" id="Animation_m8f3b"]
@@ -181,7 +217,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 150
-text = "00"
+text = "X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
