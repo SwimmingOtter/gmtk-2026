@@ -1,12 +1,21 @@
 extends Control
 
+@export var timer_tic_time: float = 0.72
+
+
+enum STATE {
+	NONE,
+	ONGOING,
+	PAUSED
+}
+
 @onready var countdown_label: Label = %CountdownLabel
 var current_count_idx: int = 21 # max of base_countdown
-var current_countdown: Array[int] = Constants.BASE_COUNTDOWN.duplicate()
+var round_nb: int = 0
 var rules: Dictionary = {}
 var tower_rounds: int = 0
 var retry_count: int = 0
-var pressed: bool = false
+var state: STATE = STATE.NONE
 
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
@@ -14,12 +23,17 @@ var pressed: bool = false
 @onready var restart_panel_container: PanelContainer = %RestartPanelContainer
 @onready var restart_label: Label = %RestartLabel
 @onready var timer: Timer = $Timer
-
+@onready var countdown_animation_player: AnimationPlayer = %CountdownAnimationPlayer
+@onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
+@onready var startgame_reveal_animator: AnimationPlayer = %StartgameRevealAnimator
 
 func _ready() -> void:
-	restart_panel_container.visible = true
-	
+	restart_panel_container.visible = false
+	countdown_animation_player.play("ok")
 	cheat_panel.visible = Constants.DEBUG_MODE
+	state = STATE.NONE
+	_set_timer_speed(timer_tic_time)
+	%ColorRect.visible = true
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -27,20 +41,40 @@ func _unhandled_input(event: InputEvent) -> void:
 		if timer.is_stopped():
 			resume()
 		else:
-			timer.stop()
+			pause_time()
 			pause_menu.visible = true
 
 
 func resume() -> void:
-	timer.start()
 	pause_menu.visible = false
+	start_time()
+	state = STATE.ONGOING
+	EventBus.game_resumed.emit()
+
+
+func start_time() -> void:
+	timer.start()
+	shader_animation_player.play()
+
+
+func pause_time() -> void:
+	timer.stop()
+	shader_animation_player.pause()
+	state = STATE.PAUSED
+	EventBus.game_paused.emit()
+
 
 func start_game() -> void:
+	EventBus.game_started.emit()
+	state = STATE.ONGOING
 	print("start")
+	startgame_reveal_animator.play("reveal")
 	SoundManager.play_background_music()
 	tower_rounds = 0
+	round_nb = 0
 	_reset_rules()
 	restart_panel_container.visible = false
+	await startgame_reveal_animator.animation_finished
 	start_tower_round()
 
 
@@ -60,11 +94,9 @@ func start_round() -> void:
 	print("Retry count: " + str(retry_count) + " / " + str(Constants.BASE_RETRY_COUNT))
 	print("Rules count: " + str(len(rules)) + " / " + str(Constants.RULE_COUNT))
 	
-	current_count_idx = Constants.BASE_START_COUNT
+	current_count_idx = CountdownManager.generate_countdown(round_nb)
 	countdown_label.text = str(current_count_idx)
-	timer.start()
-	timer.wait_time = 0.72
-	
+	start_time()
 
 func _on_timer_timeout() -> void:
 	# check if any rule were missed
@@ -82,24 +114,37 @@ func _on_timer_timeout() -> void:
 
 func round_lost(display_text: String = "KO") -> void:
 	SoundManager.wrongSound()
+	EventBus.round_lost.emit()
+	countdown_animation_player.play("error")
 	if retry_count < Constants.BASE_RETRY_COUNT:
 		retry_count += 1
 		start_round()
 	else:
 		game_lost(display_text)
+	await countdown_animation_player.animation_finished
 	
 
 func game_lost(display_text: String = "KO") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
-	timer.stop()
-	SoundManager.stop_moonkey_music()
+	pause_time()	
+  SoundManager.stop_moonkey_music()
 	SoundManager.reset_measure_count()
 	SoundManager.gameLost()
+	EventBus.game_ended.emit()
+	EventBus.game_lost.emit()
+	state = STATE.NONE
+	startgame_reveal_animator.play_backwards("reveal")
+	await startgame_reveal_animator.animation_finished
 
 	
 func round_won(display_text: String = "You did it!") -> void:
-	SoundManager.correctSound()
+  SoundManager.correctSound()
+	EventBus.round_won.emit()
+	round_nb += 1
+	countdown_animation_player.play("ok")
+	await countdown_animation_player.animation_finished
+
 	if len(rules) < Constants.RULE_COUNT:
 		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
 		start_round()
@@ -114,7 +159,9 @@ func round_won(display_text: String = "You did it!") -> void:
 func game_won(display_text: String = "You did it!") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
-	timer.stop()
+	pause_time()
+	EventBus.game_ended.emit()
+	state = STATE.NONE
 
 
 func _check_rules(pressed: bool) -> void:
@@ -126,12 +173,17 @@ func _check_rules(pressed: bool) -> void:
 func _on_button_pressed() -> void:
 	pressed = true
 	SoundManager.button_sound()
-	if current_count_idx == 0:
-		print("You did it!")
-		round_won()
+	if state == STATE.NONE:
+		print("Starting Game")
+		start_game()
+
 	else:
-		print("Nope!")
-		_check_rules(true)
+		if current_count_idx == 0:
+			print("You did it!")
+			round_won()
+		else:
+			print("Nope!")
+			_check_rules(true)
 
 func _on_win_game_button_pressed() -> void:
 	game_won()
@@ -150,5 +202,11 @@ func _on_restart_button_pressed() -> void:
 	resume()
 	start_game()
 	
+
 func _on_resume_button_pressed() -> void:
 	resume()
+
+
+func _set_timer_speed(tic_time: float) -> void:
+	timer.wait_time = tic_time
+	shader_animation_player.speed_scale = tic_time / 2.3

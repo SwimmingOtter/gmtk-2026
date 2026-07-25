@@ -4,11 +4,82 @@
 [ext_resource type="PackedScene" uid="uid://ce16ooxl06bxw" path="res://ui/rule_panel.tscn" id="2_wgcve"]
 [ext_resource type="Script" uid="uid://kdjpyn00swn4" path="res://ui/RulePanel.gd" id="3_ps5jn"]
 [ext_resource type="PackedScene" uid="uid://es3yr2fyf6lw" path="res://ui/pause_menu.tscn" id="4_2yb2i"]
-[ext_resource type="Shader" uid="uid://b5wq3kwf1ld3b" path="res://assets/shaders/glitch.gdshader" id="4_m8f3b"]
 [ext_resource type="Shader" uid="uid://q86xpr2ycc1o" path="res://assets/shaders/countdown.gdshader" id="4_py1d2"]
+[ext_resource type="Shader" uid="uid://ct4aanhwvhgki" path="res://ui/start_game_transition.gdshader" id="5_py1d2"]
+[ext_resource type="Script" uid="uid://c06ibit76101h" path="res://ui/banana_container.gd" id="6_m8f3b"]
+[ext_resource type="PackedScene" uid="uid://di73vnbdy3p7k" path="res://game/banana.tscn" id="7_1cixt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2va7"]
+shader = ExtResource("5_py1d2")
+shader_parameter/progression = 0.0
+shader_parameter/position_offset = Vector2(0.5, 0.58)
+shader_parameter/ellipsis_a = 0.10000000149012
+shader_parameter/ellipsis_b = 0.08999999798832
+shader_parameter/opening_speed = 0.60000000894072
+
+[sub_resource type="Animation" id="Animation_7kgqe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progression")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rvljv"]
+resource_name = "reveal"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progression")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.001, 1.9, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7kgqe"]
+_data = {
+&"RESET": SubResource("Animation_7kgqe"),
+&"reveal": SubResource("Animation_rvljv")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oxha2"]
-bg_color = Color(0.23730722, 0.39497346, 0.38122904, 0.57254905)
+bg_color = Color(0.23921569, 0.39607844, 0.38039216, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -18,18 +89,134 @@ border_width_bottom = 5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:material:shader_parameter/progression")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.001, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0, 1.0]
+"values": [Color(0.92156863, 0.05490196, 0.1254902, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:material:shader_parameter/progression")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%CountdownLabel:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["X"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../../ColorRect:material:shader_parameter/progression")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_2yb2i"]
-resource_name = "countdown"
+resource_name = "error"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0147, 0.19),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.92156863, 0.05490196, 0.1254902, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-10, 0), Vector2(10, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%CountdownLabel:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["X", ""]
+}
+
+[sub_resource type="Animation" id="Animation_1cixt"]
+resource_name = "ok"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.047952615, 0.24121618, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.38431373, 0.9372549, 0.3882353, 1), Color(0.3843137, 0.9372549, 0.38823527, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%CountdownLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06666667, 0.2274775),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["*", ""]
+}
+
+[sub_resource type="Animation" id="Animation_m8f3b"]
+resource_name = "shader_countdown"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -47,7 +234,9 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_py1d2"]
 _data = {
 &"RESET": SubResource("Animation_py1d2"),
-&"countdown": SubResource("Animation_2yb2i")
+&"error": SubResource("Animation_2yb2i"),
+&"ok": SubResource("Animation_1cixt"),
+&"shader_countdown": SubResource("Animation_m8f3b")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2yb2i"]
@@ -56,14 +245,6 @@ shader_parameter/progression = 0.0
 shader_parameter/trail_size = 3.0
 shader_parameter/modulate = Color(0.27450982, 0.8666667, 0.32156864, 0.4509804)
 shader_parameter/clean_loop = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxha2"]
-shader = ExtResource("4_m8f3b")
-shader_parameter/strength = 8.0
-shader_parameter/burst_chance = 0.0
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_t2dwb"]
-viewport_path = NodePath("HBoxContainer/VBoxContainer2/Control/SubViewport")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3figq"]
 
@@ -81,6 +262,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_ps5jn")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2135652267]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+material = SubResource("ShaderMaterial_m2va7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -187.0
+offset_top = -119.0
+offset_right = 168.0
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="StartgameRevealAnimator" type="AnimationPlayer" parent="ColorRect" unique_id=1960741150]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_7kgqe")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=567294436]
 layout_mode = 1
@@ -100,52 +303,45 @@ layout_mode = 2
 script = ExtResource("3_ps5jn")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1493488245]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer2" unique_id=485559913]
-custom_minimum_size = Vector2(0, 200)
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2" unique_id=930773794]
+modulate = Color(0.92156863, 0.05490196, 0.1254902, 1)
+custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
-
-[node name="SubViewport" type="SubViewport" parent="HBoxContainer/VBoxContainer2/Control" unique_id=1698637398]
-size = Vector2i(256, 200)
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer2/Control/SubViewport" unique_id=930773794]
-offset_right = 256.0
-offset_bottom = 200.0
 size_flags_horizontal = 4
+offset_transform_enabled = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_oxha2")
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer" unique_id=21342089]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=21342089]
 layout_mode = 2
 
-[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer/MarginContainer" unique_id=338401176]
+[node name="CountdownLabel" type="Label" parent="HBoxContainer/VBoxContainer2/PanelContainer/MarginContainer" unique_id=338401176]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 150
-text = "00"
+text = "X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer" unique_id=957132576]
+[node name="CountdownAnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=957132576]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_py1d2")
-autoplay = &"countdown"
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2/Control/SubViewport/PanelContainer" unique_id=669397007]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2/PanelContainer" unique_id=669397007]
 material = SubResource("ShaderMaterial_2yb2i")
 layout_mode = 2
 color = Color(0, 0, 0, 0)
 
-[node name="GlitchRect" type="TextureRect" parent="HBoxContainer/VBoxContainer2/Control" unique_id=1769233003]
-material = SubResource("ShaderMaterial_oxha2")
-layout_mode = 0
-offset_top = -5.0
-offset_right = 637.0
-offset_bottom = -5.0
-texture = SubResource("ViewportTexture_t2dwb")
-stretch_mode = 3
+[node name="ShaderAnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/PanelContainer/ColorRect" unique_id=1167197775]
+unique_name_in_owner = true
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_py1d2")
+autoplay = &"shader_countdown"
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2" unique_id=1588139827]
 layout_mode = 2
@@ -161,6 +357,47 @@ text = "PUSH"
 [node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer" unique_id=1405264740]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="BananaContainer" type="GridContainer" parent="." unique_id=276831379]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 100.0
+grow_horizontal = 0
+columns = 5
+script = ExtResource("6_m8f3b")
+banana_scene = ExtResource("7_1cixt")
+
+[node name="Banana" parent="BananaContainer" unique_id=827257719 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+offset_transform_enabled = true
+stretch_mode = 3
+
+[node name="Banana2" parent="BananaContainer" unique_id=2034873843 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+
+[node name="Banana3" parent="BananaContainer" unique_id=774591321 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+
+[node name="Banana4" parent="BananaContainer" unique_id=2140950605 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+
+[node name="Banana5" parent="BananaContainer" unique_id=29316543 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+
+[node name="Banana6" parent="BananaContainer" unique_id=2102320271 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+
+[node name="Banana7" parent="BananaContainer" unique_id=26843170 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+
+[node name="Banana8" parent="BananaContainer" unique_id=469770745 instance=ExtResource("7_1cixt")]
+layout_mode = 2
+
+[node name="Banana9" parent="BananaContainer" unique_id=55733798 instance=ExtResource("7_1cixt")]
+layout_mode = 2
 
 [node name="Timer" type="Timer" parent="." unique_id=1453747835]
 
@@ -213,6 +450,7 @@ text = "Yes !"
 
 [node name="CheatPanel" type="PanelContainer" parent="." unique_id=245231116]
 unique_name_in_owner = true
+z_index = 1
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 1
 anchors_preset = 3
