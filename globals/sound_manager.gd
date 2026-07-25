@@ -1,11 +1,11 @@
 extends Node
 @onready var sfx_tic: AudioStreamPlayer = $SFX_Tic
 @onready var bcg_moonkey: AudioStreamPlayer = $bcg_moonkey
-@onready var blabla: AudioStreamPlayer = $Blabla
-@onready var button_press: AudioStreamPlayer = $ButtonPress
-@onready var correct_press: AudioStreamPlayer = $CorrectPress
-@onready var wrong_press: AudioStreamPlayer = $WrongPress
-@onready var game_over: AudioStreamPlayer = $GameOver
+@onready var sfx_blabla: AudioStreamPlayer = $SFX_Blabla
+@onready var button_press: AudioStreamPlayer = $buttonPress
+@onready var correct_press: AudioStreamPlayer = $correctPress
+@onready var wrong_press: AudioStreamPlayer = $wrongPress
+@onready var game_over: AudioStreamPlayer = $gameOver
 
 
 
@@ -47,7 +47,7 @@ func stop_moonkey_music():
 		bcg_moonkey.stop()
 		
 func moonkeyTalk():
-	blabla.play()
+	sfx_blabla.play()
 	
 func correctSound():
 	correct_press.play()

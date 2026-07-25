@@ -13,9 +13,9 @@
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nkb21"]
 random_pitch = 1.10605
 streams_count = 2
-stream_0/stream = ExtResource("9_evlv8")
-stream_1/stream = ExtResource("9_nkb21")
-stream_1/weight = 0.0
+stream_0/stream = ExtResource("9_nkb21")
+stream_0/weight = 0.0
+stream_1/stream = ExtResource("9_evlv8")
 
 [node name="SoundManager" type="Node" unique_id=935462357]
 script = ExtResource("1_017xh")
@@ -29,24 +29,24 @@ stream = ExtResource("8_d23r7")
 volume_db = -80.0
 bus = &"Music"
 
-[node name="Blabla" type="AudioStreamPlayer" parent="." unique_id=2034939777]
+[node name="SFX_Blabla" type="AudioStreamPlayer" parent="." unique_id=2034939777]
 stream = SubResource("AudioStreamRandomizer_nkb21")
 volume_db = -35.852
 pitch_scale = 0.99
 max_polyphony = 4
 
-[node name="ButtonPress" type="AudioStreamPlayer" parent="." unique_id=729719619]
+[node name="buttonPress" type="AudioStreamPlayer" parent="." unique_id=729719619]
 stream = ExtResource("10_r2462")
 volume_db = -24.632
 
-[node name="CorrectPress" type="AudioStreamPlayer" parent="." unique_id=1391837816]
+[node name="correctPress" type="AudioStreamPlayer" parent="." unique_id=1391837816]
 stream = ExtResource("11_am1vo")
 volume_db = -29.193
 
-[node name="WrongPress" type="AudioStreamPlayer" parent="." unique_id=2113605322]
+[node name="wrongPress" type="AudioStreamPlayer" parent="." unique_id=2113605322]
 stream = ExtResource("12_7yfr0")
 volume_db = -21.517
 
-[node name="GameOver" type="AudioStreamPlayer" parent="." unique_id=1856710694]
+[node name="gameOver" type="AudioStreamPlayer" parent="." unique_id=1856710694]
 stream = ExtResource("13_evlv8")
 volume_db = -19.158
