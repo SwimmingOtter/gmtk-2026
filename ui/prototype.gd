@@ -69,28 +69,6 @@ func start_round() -> void:
 func _on_timer_timeout() -> void:
 	# check if any rule were missed
 	_check_rules(false)
-	"""if pressed == false:
-		if current_count_idx == -1:
-			round_lost()
-		else:
-			countdown_label.text = str(current_count_idx)
-			for modifier in RuleManager.get_display_rules(rules):
-				countdown_label.text = modifier.apply(countdown_label.text, current_count_idx)
-				SoundManager.play_count_down_sound()
-	else:
-		if current_count_idx == 0:
-			print("You did it!")
-			round_won()
-			countdown_label.text = str(current_count_idx)
-			for modifier in RuleManager.get_display_rules(rules):
-				countdown_label.text = modifier.apply(countdown_label.text, current_count_idx)
-				SoundManager.play_count_down_sound()
-				pressed = false
-		else:
-			pressed = false
-			print("Nope!")
-			_check_rules(true)"""
-		
 	current_count_idx -= 1
 	if current_count_idx == -1:
 		round_lost()
