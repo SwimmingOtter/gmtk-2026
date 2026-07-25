@@ -1,5 +1,7 @@
 extends Control
 
+@export var timer_tic_time: float = 0.72
+
 @onready var countdown_label: Label = %CountdownLabel
 var current_count_idx: int = 21 # max of base_countdown
 var current_countdown: Array[int] = Constants.BASE_COUNTDOWN.duplicate()
@@ -13,12 +15,14 @@ var retry_count: int = 0
 @onready var restart_panel_container: PanelContainer = %RestartPanelContainer
 @onready var restart_label: Label = %RestartLabel
 @onready var timer: Timer = $Timer
-
+@onready var countdown_animation_player: AnimationPlayer = %CountdownAnimationPlayer
+@onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
 
 func _ready() -> void:
 	restart_panel_container.visible = true
-	
+	countdown_animation_player.play("ok")
 	cheat_panel.visible = Constants.DEBUG_MODE
+	_set_timer_speed(timer_tic_time)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -26,13 +30,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		if timer.is_stopped():
 			resume()
 		else:
-			timer.stop()
+			pause_time()
 			pause_menu.visible = true
 
 
 func resume() -> void:
-	timer.start()
 	pause_menu.visible = false
+	start_time()
+
+
+func start_time() -> void:
+	timer.start()
+	shader_animation_player.play()
+
+
+func pause_time() -> void:
+	timer.stop()
+	shader_animation_player.pause()
+
 
 func start_game() -> void:
 	print("start")
@@ -61,9 +76,7 @@ func start_round() -> void:
 	
 	current_count_idx = Constants.BASE_START_COUNT
 	countdown_label.text = str(current_count_idx)
-	timer.start()
-	timer.wait_time = 0.72
-	
+	start_time()
 
 func _on_timer_timeout() -> void:
 	# check if any rule were missed
@@ -81,6 +94,7 @@ func _on_timer_timeout() -> void:
 
 
 func round_lost(display_text: String = "KO") -> void:
+	countdown_animation_player.play("error")
 	if retry_count < Constants.BASE_RETRY_COUNT:
 		retry_count += 1
 		start_round()
@@ -91,10 +105,11 @@ func round_lost(display_text: String = "KO") -> void:
 func game_lost(display_text: String = "KO") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
-	timer.stop()
+	pause_time()
 
 	
 func round_won(display_text: String = "You did it!") -> void:
+	countdown_animation_player.play("ok")
 	if len(rules) < Constants.RULE_COUNT:
 		rules = RuleManager.generate_new_rule(rules, Constants.BASE_START_COUNT, Constants.RULE_COUNT)
 		start_round()
@@ -109,7 +124,7 @@ func round_won(display_text: String = "You did it!") -> void:
 func game_won(display_text: String = "You did it!") -> void:
 	restart_panel_container.visible = true
 	restart_label.text = display_text
-	timer.stop()
+	pause_time()
 
 
 func _check_rules(pressed: bool) -> void:
@@ -142,5 +157,11 @@ func _on_restart_button_pressed() -> void:
 	resume()
 	start_game()
 	
+
 func _on_resume_button_pressed() -> void:
 	resume()
+
+
+func _set_timer_speed(tic_time: float) -> void:
+	timer.wait_time = tic_time
+	shader_animation_player.speed_scale = tic_time / 2.3
