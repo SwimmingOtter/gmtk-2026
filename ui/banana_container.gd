@@ -22,10 +22,12 @@ func _remove_bananas():
 		child.free()
 		
 func _remove_banana():
-	var child = get_child(-1)
-	if child:
-		child.free()
+	for i in range(Constants.RETRY_LOST_ON_ERROR):
+		if get_child_count():
+			var child = get_child(-1)
+			if child:
+				child.free()
 		
 func _add_bananas():
-	_create_one_banana()
-	_create_one_banana()
+	for i in range(Constants.RETRY_WON_ON_SUCCES):
+		_create_one_banana()

@@ -242,7 +242,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath("%CountdownLabel:text")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -270,7 +270,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("%CountdownLabel:text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -445,6 +445,7 @@ theme_override_constants/separation = 17
 theme_override_styles/separator = SubResource("StyleBoxEmpty_3figq")
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2" unique_id=1229407937]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 100

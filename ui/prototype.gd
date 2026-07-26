@@ -10,7 +10,6 @@ enum STATE {
 	PAUSED
 }
 
-@onready var countdown_label: RichTextLabel = %CountdownLabel
 var current_count_idx: int = 21 # max of base_countdown
 var round_nb: int = 0
 var rules: Dictionary = {}
@@ -18,6 +17,7 @@ var tower_rounds: int = 0
 var retry_count: int = 0
 var state: STATE = STATE.NONE
 
+@onready var countdown_label: RichTextLabel = %CountdownLabel
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
 @onready var rule_panel: RulePanel = %RulePanel
@@ -27,6 +27,7 @@ var state: STATE = STATE.NONE
 @onready var countdown_animation_player: AnimationPlayer = %CountdownAnimationPlayer
 @onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
 @onready var startgame_reveal_animator: AnimationPlayer = %StartgameRevealAnimator
+@onready var button: Button = %Button
 
 func _ready() -> void:
 	restart_panel_container.visible = false
@@ -103,7 +104,7 @@ func _on_timer_timeout() -> void:
 	# check if any rule were missed
 	_check_rules(false)
 	current_count_idx -= 1
-	if current_count_idx == -1:
+	if current_count_idx <= -1:
 		press_error()
 		inter_round(false)
 	else:
@@ -124,15 +125,20 @@ func inter_round(go_to_next: bool) -> void:
 
 
 func press_error(display_text: String = "KO") -> void:
+	pause_time()
+	button.disabled = true
 	countdown_animation_player.play("error")
+	EventBus.button_pressed_error.emit()
 
-	if retry_count < Constants.BASE_RETRY_COUNT:
-		retry_count += 1
-	else:
+	if retry_count <= Constants.BASE_RETRY_COUNT:
+		retry_count += Constants.RETRY_LOST_ON_ERROR
+	
+	if retry_count > Constants.BASE_RETRY_COUNT:
 		game_lost(display_text)
 		
 	await countdown_animation_player.animation_finished
-	EventBus.button_pressed_error.emit()
+	resume()
+	button.disabled = false
 	
 
 func game_lost(display_text: String = "KO") -> void:
@@ -151,6 +157,8 @@ func game_lost(display_text: String = "KO") -> void:
 func round_won(display_text: String = "You did it!") -> void:
 	EventBus.round_won.emit()
 	round_nb += 1
+	retry_count -= Constants.RETRY_WON_ON_SUCCES
+
 	countdown_animation_player.play("ok")
 
 	if len(rules) < Constants.RULE_COUNT:
