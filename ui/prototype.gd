@@ -27,8 +27,8 @@ var state: STATE = STATE.NONE
 @onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
 @onready var startgame_reveal_animator: AnimationPlayer = %StartgameRevealAnimator
 @onready var start_menu: StartMenu = %StartMenu
-@onready var victory_screen: VictoryScreen = %VictoryScreen
 @onready var button: TextureButton = %TextureButton
+@onready var victory_screen: VictoryScreen = %VictoryScreen
 
 func _ready() -> void:
 	start_menu.visible = true
@@ -71,6 +71,7 @@ func pause_time() -> void:
 
 func start_game() -> void:
 	EventBus.game_started.emit()
+	rule_panel.visible = true
 	state = STATE.ONGOING
 	print("start")
 	startgame_reveal_animator.play("reveal")
@@ -184,15 +185,16 @@ func game_won() -> void:
 	state = STATE.NONE
 	
 	if retry_count > 0:
-		victory_screen.display_hype_text("The monkeys look kinda sad and ill...")
+		victory_screen.display_hype_text("The Moonkeys look kinda sad and ill...")
 	elif retry_count > -10:
-		victory_screen.display_hype_text("The monkeys are not really paying attention to you.")
+		victory_screen.display_hype_text("The Moonkeys are not really paying attention to you.")
 	elif retry_count > -20:
-		victory_screen.display_hype_text("The monkeys semms to like you. They offer you fruits and twigs.")
+		victory_screen.display_hype_text("The Moonkeys semms to like you. They offer you fruits and twigs.")
 	elif retry_count > -30:
-		victory_screen.display_hype_text("The monkeys are having a blast! It looks like they are celebrating something.")
+		victory_screen.display_hype_text("The Moonkeys are having a blast! It looks like they are celebrating something.")
 		
 	victory_screen.visible = true
+	rule_panel.visible = false
 
 
 func _check_rules(pressed: bool) -> void:

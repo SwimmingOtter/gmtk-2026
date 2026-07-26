@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://dmhro5xxxlce3"
+uid="uid://csi2ls8pvs835"
 path="res://.godot/imported/VictorySONG.ogg-f594eab4c4d9b38c18aa74f3038ec4e0.oggvorbisstr"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/VictorySONG.ogg-f594eab4c4d9b38c18aa74f3038ec
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -15,12 +15,11 @@ extends Node
 @onready var moonkey_theme: AudioStreamPlayer = $MoonkeyTheme
 
 
-
 var measure_music: int = 0
 var first_bar: bool = true
 var nb_rules: int = 1
 var nextIsStart: bool = true
-var seriousLevel : int = 10
+var seriousLevel: int = 9
 
 func _ready() -> void:
 	EventBus.button_pressed_error.connect(wrongSound)
@@ -44,8 +43,7 @@ func stopVictoryMusic():
 
 func setNextIsStart():
 	nextIsStart = true
-	
-	
+
 func play_game_intro():
 	moonkey_theme.play()
 	
@@ -108,10 +106,9 @@ func button_sound():
 		nextIsStart = false
 
 func play_count_down_sound():
-	measure_music += 1	
+	measure_music += 1
 	if measure_music >= 1:
 		if nb_rules <= seriousLevel:
 			sfx_tic.play()
 		else:
 			sfx_strong_tick.play()
-	

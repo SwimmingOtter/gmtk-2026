@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dvra38g3f1m5k" path="res://ui/victory_screen.gd" id="1_oh8u7"]
 [ext_resource type="Texture2D" uid="uid://dqgcx8qtychgp" path="res://assets/icons/UI_cadre_regles.png" id="2_05ipg"]
+[ext_resource type="Texture2D" uid="uid://2qdj7dt33cr8" path="res://assets/icons/etoile.png" id="3_i2vuy"]
 
 [sub_resource type="Theme" id="Theme_avurv"]
 
@@ -16,7 +17,18 @@ expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_05ipg"]
+load_path = "res://.godot/imported/bouton_menu.png-e3d491eb4c40c37054bc9de91f43b279.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_csba1"]
+texture = SubResource("CompressedTexture2D_05ipg")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
 [node name="VictoryScreen" type="Control" unique_id=1095374747]
+z_index = 154
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +66,7 @@ theme_override_constants/separation = 15
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
-text = "You beat the countdown and freed the monkeys."
+text = "You beat the countdown and freed the moonkeys."
 vertical_alignment = 2
 autowrap_mode = 2
 
@@ -63,7 +75,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 50
-text = "The monkeys are hyped."
+text = "The moonkeys are hyped."
 autowrap_mode = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=7052261]
@@ -88,6 +100,24 @@ offset_bottom = 427.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_csba1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_csba1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_csba1")
 text = "REPLAY"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=471726475]
+position = Vector2(958, 568)
+amount = 50
+texture = ExtResource("3_i2vuy")
+lifetime = 1.5
+explosiveness = 0.04
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 704.44
+initial_velocity_max = 955.67
+orbit_velocity_min = 0.05
+orbit_velocity_max = 0.1
+scale_amount_min = 4.0
+scale_amount_max = 4.2
 
 [connection signal="pressed" from="ReplayButton" to="." method="_on_replay_button_pressed"]

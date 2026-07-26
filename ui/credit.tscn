@@ -28,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.07058824, 0.15294118, 0.1882353, 1)
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=1709539917]
 layout_mode = 0
@@ -38,7 +38,7 @@ offset_right = 1425.0
 offset_bottom = 385.0
 theme_override_font_sizes/normal_font_size = 75
 bbcode_enabled = true
-text = "A game for the [color=red]GMTK-2026[/color]
+text = "A game for the [color=#e13f56]GMTK-2026[/color]
 
 made BY"
 horizontal_alignment = 1

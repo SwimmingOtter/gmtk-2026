@@ -4,13 +4,22 @@ enum STATE {
 	IDLE,
 	WAITING,
 	TALKING,
-	MOVING
+	MOVING,
+	HYPED
 }
 
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var timer: Timer = %Timer
 var state: STATE = STATE.IDLE
 var direction: Vector2 = Vector2.ZERO
+
+const base_scale: float = 1.0
+const base_speed_scale: float = 1.0
+
+var evol_speed: float = base_speed_scale
+
+@export var evol_prob: float = 0.2
+@export var evol_amount: float = 0.05
 
 func _ready() -> void:
 	timer.timeout.connect(update_state)
@@ -20,12 +29,39 @@ func _ready() -> void:
 	idle()
 	EventBus.round_won.connect(hypeOnCorrect)
 	EventBus.button_pressed_error.connect(booOnWrong)
+	EventBus.game_won.connect(activate_hype_mode)
+	EventBus.game_started.connect(reset_state)
 	
+func reset_state():
+	scale = Vector2.ONE * base_scale
+	evol_speed = base_speed_scale
+	state = STATE.IDLE
 	
+func _evolve():
+	if randf() < evol_prob:
+		var has_evolved: bool = false
+		$AnimationPlayer.play("evolving")
+		if randi()%2:
+			scale += Vector2.ONE * evol_amount
+			has_evolved = true
+		if randi()%2:
+			evol_speed += evol_amount
+			has_evolved = true
+		
+		if not has_evolved:
+			scale += Vector2.ONE * evol_amount
+			evol_speed += evol_amount
+			
+	
+func activate_hype_mode():
+	state = STATE.HYPED
 
 func hypeOnCorrect() -> void:
+	_evolve()
 	if randf() > 0.1:
 		EventBus.moonkey_hype.emit()
+		%HypeParticules.emitting = true
+		
 func booOnWrong() -> void:
 	if randf() > 0.1:
 		EventBus.moonkey_boo.emit()
@@ -43,8 +79,13 @@ func update_state() -> void:
 
 func _physics_process(_delta):
 	if state == STATE.MOVING:
-		velocity = direction * 100
-		move_and_slide()
+		velocity = direction * 2.0 * evol_speed
+		move_and_collide(velocity)
+	elif state == STATE.HYPED:
+		if randf() > 0.1:
+			#EventBus.moonkey_hype.emit()
+			%HypeParticules.emitting = true
+		
 			
 func move():
 	state = STATE.MOVING
@@ -74,3 +115,4 @@ func talk():
 		%BubbleSprite.position.x = -54
 		
 	%BubbleSprite.play("default")
+	timer.start(randf_range(0.8, 1.2))

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://jwivbdr1pnj1"]
+
+[ext_resource type="Texture2D" uid="uid://cem0y4jte2v5m" path="res://assets/tilesheets/etoile-Sheet.png" id="1_serii"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66h6h"]
+atlas = ExtResource("1_serii")
+region = Rect2(7, 0, 7, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofbif"]
+atlas = ExtResource("1_serii")
+region = Rect2(14, 0, 7, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6eu6"]
+atlas = ExtResource("1_serii")
+region = Rect2(21, 0, 7, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffotp"]
+atlas = ExtResource("1_serii")
+region = Rect2(28, 0, 7, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eqsj"]
+atlas = ExtResource("1_serii")
+region = Rect2(35, 0, 7, 9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t2dwb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66h6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofbif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6eu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffotp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eqsj")
+}, {
+"duration": 16.2,
+"texture": null
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="start_small" type="AnimatedSprite2D" unique_id=530104739]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_t2dwb")
+frame_progress = 0.4638274
