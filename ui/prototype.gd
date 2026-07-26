@@ -101,18 +101,18 @@ func start_round() -> void:
 	start_time()
 
 func _on_timer_timeout() -> void:
-	# check if any rule were missed
-	_check_rules(false)
-	current_count_idx -= 1
-	if current_count_idx <= -1:
-		press_error()
-		inter_round(false)
-	else:
-		countdown_label.text = str(current_count_idx)
-		for modifier in RuleManager.get_display_rules(rules):
-			countdown_label.text = modifier.apply(countdown_label.text, current_count_idx)
-		
-		SoundManager.play_count_down_sound()
+	if state == STATE.ONGOING:
+		# check if any rule were missed
+		await _check_rules(false)
+		current_count_idx -= 1
+		if current_count_idx <= -1:
+			inter_round(false)
+		else:
+			countdown_label.text = str(current_count_idx)
+			for modifier in RuleManager.get_display_rules(rules):
+				countdown_label.text = modifier.apply(countdown_label.text, current_count_idx)
+			
+			SoundManager.play_count_down_sound()
 
 
 func inter_round(go_to_next: bool) -> void:
@@ -122,10 +122,12 @@ func inter_round(go_to_next: bool) -> void:
 		%TransitionCountdownAnimationPlayer.play("new_rule")
 	else:
 		%TransitionCountdownAnimationPlayer.play("again")
+	await %TransitionCountdownAnimationPlayer.animation_finished
 
 
-func press_error(display_text: String = "KO") -> void:
+func press_error() -> void:
 	pause_time()
+	state = STATE.ONGOING
 	button.disabled = true
 	countdown_animation_player.play("error")
 	EventBus.button_pressed_error.emit()
@@ -134,11 +136,11 @@ func press_error(display_text: String = "KO") -> void:
 		retry_count += Constants.RETRY_LOST_ON_ERROR
 	
 	if retry_count > Constants.BASE_RETRY_COUNT:
-		game_lost(display_text)
+		game_lost()
 		
 	await countdown_animation_player.animation_finished
-	resume()
 	button.disabled = false
+	resume()
 	
 
 func game_lost(display_text: String = "KO") -> void:
@@ -183,7 +185,7 @@ func game_won(display_text: String = "You did it!") -> void:
 func _check_rules(pressed: bool) -> void:
 	for rule in RuleManager.get_press_rules(rules):
 		if not rule.check(countdown_label.text, current_count_idx, pressed):
-			press_error("Wrong press")
+			await press_error()
 
 
 func _on_button_pressed() -> void:
@@ -193,7 +195,7 @@ func _on_button_pressed() -> void:
 		start_game()
 	elif state == STATE.INTER_ROUND:
 		start_round()
-	else:
+	elif state == STATE.ONGOING:
 		if current_count_idx == 0:
 			print("You did it!")
 			round_won()
