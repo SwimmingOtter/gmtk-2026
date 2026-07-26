@@ -6,7 +6,6 @@ extends Node
 @onready var wrong_press: AudioStreamPlayer = $wrongPress
 @onready var game_over: AudioStreamPlayer = $gameOver
 @onready var waiting_clock: AudioStreamPlayer = $waitingClock
-@onready var sfx_first_tick: AudioStreamPlayer = $SFX_FirstTick
 @onready var sfx_strong_tick: AudioStreamPlayer = $SFX_StrongTick
 @onready var sfx_round_start: AudioStreamPlayer = $SFX_RoundStart
 @onready var sfx_strong_correct: AudioStreamPlayer = $SFX_StrongCorrect
@@ -33,6 +32,8 @@ func _ready() -> void:
 	EventBus.game_won.connect(victory_music)
 	EventBus.timer_paused.connect(setNextIsStart)
 	EventBus.game_restarted.connect(stopVictoryMusic)
+	EventBus.moonkey_hype.connect(moonkeyHype)
+	EventBus.moonkey_boo.connect(moonkeyBoo)
 	
 func _new_rule(rules: Dictionary) -> void:
 	nb_rules += 1
@@ -44,8 +45,6 @@ func stopVictoryMusic():
 func setNextIsStart():
 	nextIsStart = true
 	
-func playFirstTick():
-	sfx_first_tick.play()
 	
 func play_game_intro():
 	moonkey_theme.play()

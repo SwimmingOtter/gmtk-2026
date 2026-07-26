@@ -18,7 +18,17 @@ func _ready() -> void:
 	if randf() > 0.5:
 		animated_sprite_2d.flip_h = true
 	idle()
+	EventBus.round_won.connect(hypeOnCorrect)
+	EventBus.button_pressed_error.connect(booOnWrong)
 	
+	
+
+func hypeOnCorrect() -> void:
+	if randf() > 0.1:
+		EventBus.moonkey_hype.emit()
+func booOnWrong() -> void:
+	if randf() > 0.1:
+		EventBus.moonkey_boo.emit()
 
 func update_state() -> void:
 	if state == STATE.IDLE:

@@ -17,3 +17,5 @@ extends Node
 @warning_ignore("unused_signal") signal countdown_ticked()
 @warning_ignore("unused_signal") signal moonkey_talked()
 @warning_ignore("unused_signal") signal timer_paused()
+@warning_ignore("unused_signal") signal moonkey_hype()
+@warning_ignore("unused_signal") signal moonkey_boo()
