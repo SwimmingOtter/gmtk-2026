@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c06ibit76101h" path="res://ui/banana_container.gd" id="6_m8f3b"]
 [ext_resource type="PackedScene" uid="uid://di73vnbdy3p7k" path="res://game/banana.tscn" id="7_1cixt"]
 [ext_resource type="PackedScene" uid="uid://b8e3ka4joxb0y" path="res://ui/start_menu.tscn" id="9_eqk5p"]
+[ext_resource type="PackedScene" uid="uid://c1a7xgou2iklm" path="res://ui/victory_screen.tscn" id="10_rvljv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m2va7"]
 shader = ExtResource("5_py1d2")
@@ -553,6 +554,11 @@ unique_name_in_owner = true
 z_index = 10
 layout_mode = 1
 
+[node name="VictoryScreen" parent="." unique_id=1095374747 instance=ExtResource("10_rvljv")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
 [connection signal="pressed" from="HBoxContainer/VBoxContainer2/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="CheatPanel/VBoxContainer/GridContainer/WinGameButton" to="." method="_on_win_game_button_pressed"]
@@ -562,3 +568,4 @@ layout_mode = 1
 [connection signal="restart_button_pressed" from="PauseMenu" to="." method="_on_restart_button_pressed"]
 [connection signal="resume_button_pressed" from="PauseMenu" to="." method="_on_resume_button_pressed"]
 [connection signal="hidden_start_button_pressed" from="StartMenu" to="." method="_on_start_menu_hidden_start_button_pressed"]
+[connection signal="replay_button_pressed" from="VictoryScreen" to="." method="_on_victory_screen_replay_button_pressed"]

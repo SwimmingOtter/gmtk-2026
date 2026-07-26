@@ -7,6 +7,7 @@ extends Node
 @warning_ignore("unused_signal") signal game_resumed()
 @warning_ignore("unused_signal") signal game_ended()
 @warning_ignore("unused_signal") signal game_lost()
+@warning_ignore("unused_signal") signal game_won()
 
 @warning_ignore("unused_signal") signal round_won()
 @warning_ignore("unused_signal") signal button_pressed_error()

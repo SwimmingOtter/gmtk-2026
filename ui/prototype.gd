@@ -28,6 +28,7 @@ var state: STATE = STATE.NONE
 @onready var startgame_reveal_animator: AnimationPlayer = %StartgameRevealAnimator
 @onready var button: Button = %Button
 @onready var start_menu: StartMenu = %StartMenu
+@onready var victory_screen: VictoryScreen = %VictoryScreen
 
 func _ready() -> void:
 	start_menu.visible = true
@@ -80,7 +81,6 @@ func start_game() -> void:
 
 func start_tower_round() -> void:
 	tower_rounds += 1
-	retry_count = 0
 	start_round()
 
 
@@ -175,7 +175,19 @@ func round_won() -> void:
 func game_won() -> void:
 	pause_time()
 	EventBus.game_ended.emit()
+	EventBus.game_won.emit()
 	state = STATE.NONE
+	
+	if retry_count > 0:
+		victory_screen.display_hype_text("The monkeys look kinda sad and ill...")
+	elif retry_count > -10:
+		victory_screen.display_hype_text("The monkeys are not really paying attention to you.")
+	elif retry_count > -20:
+		victory_screen.display_hype_text("The monkeys semms to like you. They offer you fruits and twigs.")
+	elif retry_count > -30:
+		victory_screen.display_hype_text("The monkeys are having a blast! It looks like they are celebrating something.")
+		
+	victory_screen.visible = true
 
 
 func _check_rules(pressed: bool) -> void:
@@ -229,5 +241,11 @@ func _set_timer_speed(tic_time: float) -> void:
 func _on_start_menu_hidden_start_button_pressed() -> void:
 	start_menu.visible = false
 	SoundManager.button_sound()
+	print("Starting Game")
+	start_game()
+
+
+func _on_victory_screen_replay_button_pressed() -> void:
+	victory_screen.visible = false
 	print("Starting Game")
 	start_game()
