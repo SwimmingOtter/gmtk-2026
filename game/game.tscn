@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://c2fhblhm4fl32" path="res://ui/prototype.tscn" id="1_l1rk1"]
 [ext_resource type="PackedScene" uid="uid://dp1u8c6sc0a0q" path="res://game/monkeys/monkey.tscn" id="1_u5opy"]
 [ext_resource type="Script" uid="uid://b2mck0mtbhv3p" path="res://game/game.gd" id="1_y36n6"]
-[ext_resource type="PackedScene" uid="uid://b8e3ka4joxb0y" path="res://ui/start_menu.tscn" id="2_vasa2"]
 [ext_resource type="Script" uid="uid://dxbcknk756rl8" path="res://game/monkey_manager.gd" id="3_l8g03"]
 [ext_resource type="Texture2D" uid="uid://rrbib6f22nel" path="res://assets/background/sol__arbres.png" id="5_y36n6"]
 [ext_resource type="Texture2D" uid="uid://cxq2jboulp7p3" path="res://assets/background/feuilage.png" id="6_l8g03"]
@@ -44,7 +43,7 @@ position = Vector2(525, 500)
 [node name="StaticBody2D" type="StaticBody2D" parent="CanvasLayer/Walls" unique_id=163673834]
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="CanvasLayer/Walls/StaticBody2D" unique_id=1736683085]
-position = Vector2(-33, -39)
+position = Vector2(-89, -65)
 polygon = PackedVector2Array(-3, 0, 2162, -10, 2172, 1204, 1917, 1210, 1995, 897, 1805, 611, 1505, 426, 1268, 388, 1228, 426, 840, 420, 680, 520, 451, 520, 318, 619, 269, 715, 137, 926, 142, 1119, 250, 1234, -34, 1228)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="CanvasLayer/Walls" unique_id=509063809]
@@ -74,10 +73,10 @@ strengths = Array[float]([0.0, 5.0, 20.0])
 [node name="Background" type="TextureRect" parent="CanvasLayer/Background" unique_id=1770288115]
 z_index = -10
 layout_mode = 0
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 1900.0
-offset_bottom = 1060.0
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 1860.0
+offset_bottom = 1020.0
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("5_y36n6")
 
@@ -99,7 +98,7 @@ offset_left = -60.0
 offset_top = -60.0
 offset_right = 1860.0
 offset_bottom = 1020.0
-scale = Vector2(1.15, 1.15)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("6_l8g03")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=18863404]
@@ -107,6 +106,3 @@ texture = ExtResource("6_l8g03")
 [node name="prototype" parent="CanvasLayer2" unique_id=1857927859 instance=ExtResource("1_l1rk1")]
 offset_top = -1.0
 offset_bottom = -1.0
-
-[node name="StartMenu" parent="CanvasLayer2" unique_id=1241606550 instance=ExtResource("2_vasa2")]
-visible = false

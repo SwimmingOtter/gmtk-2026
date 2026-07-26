@@ -1,5 +1,18 @@
 [gd_scene format=3 uid="uid://b8e3ka4joxb0y"]
 
+[ext_resource type="Script" uid="uid://c8b7cueqqttes" path="res://ui/start_menu.gd" id="1_iuit4"]
+[ext_resource type="PackedScene" uid="uid://cg2ltl5uwkda3" path="res://ui/credit.tscn" id="2_loyqk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t2dwb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m2va7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oxha2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bhnsc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_11rml"]
+
 [node name="StartMenu" type="Control" unique_id=1241606550]
 layout_mode = 3
 anchors_preset = 15
@@ -9,6 +22,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_iuit4")
 
 [node name="Label" type="Label" parent="." unique_id=1774089459]
 layout_mode = 1
@@ -17,10 +32,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -477.0
-offset_top = -354.0
-offset_right = 472.0
-offset_bottom = -134.0
+offset_left = -814.0
+offset_top = -436.0
+offset_right = 825.0
+offset_bottom = -148.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 300
@@ -33,25 +48,44 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -94.0
-offset_top = 72.0
-offset_right = 99.0
-offset_bottom = 288.0
+offset_left = -660.0
+offset_top = 50.0
+offset_right = -467.0
+offset_bottom = 266.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 24
 
-[node name="StartGameButton" type="Button" parent="VBoxContainer" unique_id=699405370]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "START"
-
 [node name="CreditsButton" type="Button" parent="VBoxContainer" unique_id=1892529440]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "CREDIT"
+text = "CREDITs"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1167104513]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "QUIT"
+
+[node name="Credit" parent="." unique_id=18892528 instance=ExtResource("2_loyqk")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+mouse_filter = 1
+
+[node name="HiddenStartButton" type="Button" parent="." unique_id=1121000965]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+offset_left = 794.0
+offset_top = 470.0
+offset_right = 1194.0
+offset_bottom = 870.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_t2dwb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_m2va7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_oxha2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bhnsc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_11rml")
+
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="escape_button_pressed" from="Credit" to="." method="_on_credit_escape_button_pressed"]
+[connection signal="pressed" from="HiddenStartButton" to="." method="_on_hidden_start_button_pressed"]

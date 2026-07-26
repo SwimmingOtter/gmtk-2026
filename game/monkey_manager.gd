@@ -16,6 +16,7 @@ func spawn_monkeys():
 	for i in range(monkey_count):
 		var monkey = monkey_scene.instantiate()
 		self.add_child(monkey)
+		monkey.add_to_group("monkey")
 		
 		var angle: int = randi() % 180
 		var direction = Vector2(cos(angle * PI / 180), sin(angle * PI / 180))

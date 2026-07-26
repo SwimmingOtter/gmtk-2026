@@ -35,5 +35,6 @@ func remove_rule(idx: int) -> void:
 	var container = rules_container.get_child(idx)
 	container.get_child(2).text = ""
 
+
 func _on_rules_changed(rules: Dictionary) -> void:
 	display(rules, Constants.RULE_COUNT)

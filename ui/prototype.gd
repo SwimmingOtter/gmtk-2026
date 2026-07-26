@@ -17,6 +17,7 @@ var tower_rounds: int = 0
 var retry_count: int = 0
 var state: STATE = STATE.NONE
 
+
 @onready var countdown_label: RichTextLabel = %CountdownLabel
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
@@ -26,8 +27,10 @@ var state: STATE = STATE.NONE
 @onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
 @onready var startgame_reveal_animator: AnimationPlayer = %StartgameRevealAnimator
 @onready var button: Button = %Button
+@onready var start_menu: StartMenu = %StartMenu
 
 func _ready() -> void:
+	start_menu.visible = true
 	countdown_animation_player.play("ok")
 	cheat_panel.visible = Constants.DEBUG_MODE
 	state = STATE.NONE
@@ -148,9 +151,10 @@ func game_lost() -> void:
 	state = STATE.NONE
 	startgame_reveal_animator.play_backwards("reveal")
 	await startgame_reveal_animator.animation_finished
+	start_menu.visible = true
 
 	
-func round_won(display_text: String = "You did it!") -> void:
+func round_won() -> void:
 	EventBus.round_won.emit()
 	round_nb += 1
 	retry_count -= Constants.RETRY_WON_ON_SUCCES
@@ -220,3 +224,10 @@ func _on_resume_button_pressed() -> void:
 func _set_timer_speed(tic_time: float) -> void:
 	timer.wait_time = tic_time
 	shader_animation_player.speed_scale = tic_time / 2.3
+
+
+func _on_start_menu_hidden_start_button_pressed() -> void:
+	start_menu.visible = false
+	SoundManager.button_sound()
+	print("Starting Game")
+	start_game()
