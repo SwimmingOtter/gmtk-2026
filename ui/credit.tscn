@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://cg2ltl5uwkda3"]
+
+[node name="Credit" type="Control" unique_id=18892528]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1465369225]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="RichTextLabel" parent="." unique_id=1709539917]
+layout_mode = 0
+offset_left = 497.0
+offset_top = 84.0
+offset_right = 1425.0
+offset_bottom = 385.0
+theme_override_font_sizes/normal_font_size = 75
+bbcode_enabled = true
+text = "A game for the [color=red]GMTK-2026[/color]
+
+made BY"
+horizontal_alignment = 1
+
+[node name="Control" type="VBoxContainer" parent="." unique_id=591436103]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 468.0
+offset_right = 923.0
+offset_bottom = 678.0
+theme_override_constants/separation = 16
+
+[node name="art" type="RichTextLabel" parent="Control" unique_id=527350960]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=1.8 connected=1]Loline \"LIZARDO\" "
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="art2" type="RichTextLabel" parent="Control" unique_id=1843406494]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "art"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Control2" type="VBoxContainer" parent="." unique_id=321663418]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 778.0
+offset_right = 1316.0
+offset_bottom = 988.0
+theme_override_constants/separation = 16
+
+[node name="art" type="RichTextLabel" parent="Control2" unique_id=1901519199]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=1.8 connected=1]JB \"Djeeb\" Bardin "
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="art2" type="RichTextLabel" parent="Control2" unique_id=1811677870]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "code"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="Control3" type="VBoxContainer" parent="." unique_id=1995622997]
+layout_mode = 0
+offset_left = 1081.0
+offset_top = 602.0
+offset_right = 1937.0
+offset_bottom = 812.0
+theme_override_constants/separation = 16
+
+[node name="art" type="RichTextLabel" parent="Control3" unique_id=1935742104]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[wave amp=50.0 freq=1.8 connected=1]Tz'ayik \"ITzamn\" Fort "
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+
+[node name="art2" type="RichTextLabel" parent="Control3" unique_id=2147244665]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Sound & Musique"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
