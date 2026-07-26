@@ -21,8 +21,6 @@ var state: STATE = STATE.NONE
 @onready var pause_menu: PauseMenu = %PauseMenu
 @onready var cheat_panel: PanelContainer = %CheatPanel
 @onready var rule_panel: RulePanel = %RulePanel
-@onready var restart_panel_container: PanelContainer = %RestartPanelContainer
-@onready var restart_label: Label = %RestartLabel
 @onready var timer: Timer = $Timer
 @onready var countdown_animation_player: AnimationPlayer = %CountdownAnimationPlayer
 @onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
@@ -30,7 +28,6 @@ var state: STATE = STATE.NONE
 @onready var button: Button = %Button
 
 func _ready() -> void:
-	restart_panel_container.visible = false
 	countdown_animation_player.play("ok")
 	cheat_panel.visible = Constants.DEBUG_MODE
 	state = STATE.NONE
@@ -74,7 +71,6 @@ func start_game() -> void:
 	tower_rounds = 0
 	round_nb = 0
 	_reset_rules()
-	restart_panel_container.visible = false
 	await startgame_reveal_animator.animation_finished
 	start_tower_round()
 
@@ -143,9 +139,7 @@ func press_error() -> void:
 	resume()
 	
 
-func game_lost(display_text: String = "KO") -> void:
-	restart_panel_container.visible = true
-	restart_label.text = display_text
+func game_lost() -> void:
 	pause_time()
 
 	EventBus.game_ended.emit()
@@ -171,12 +165,10 @@ func round_won(display_text: String = "You did it!") -> void:
 			rules = RuleManager.remove_random_rules(rules, Constants.RULE_COUNT, Constants.RULE_LOST_PER_TOWER)
 			start_tower_round()
 		else:
-			game_won(display_text)
+			game_won()
 
 
-func game_won(display_text: String = "You did it!") -> void:
-	restart_panel_container.visible = true
-	restart_label.text = display_text
+func game_won() -> void:
 	pause_time()
 	EventBus.game_ended.emit()
 	state = STATE.NONE
