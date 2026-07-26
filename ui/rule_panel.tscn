@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ce16ooxl06bxw"]
 
-[ext_resource type="Script" uid="uid://cqte12ccq5f1r" path="res://ui/Prototype.gd" id="1_630mk"]
+[ext_resource type="Script" uid="uid://b3lw0w1du3w2s" path="res://ui/Prototype.gd" id="1_630mk"]
 [ext_resource type="Texture2D" uid="uid://dbtngt53w0tmr" path="res://assets/icons/bb.png" id="2_ck3nv"]
 [ext_resource type="PackedScene" uid="uid://dcfx1jmbjjito" path="res://ui/rule_container.tscn" id="3_ck3nv"]
 
@@ -17,6 +17,7 @@ layout_mode = 2
 
 [node name="MonkeyRuleContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2096679186]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/MonkeyRuleContainer" unique_id=81136681]
 layout_mode = 2
@@ -32,7 +33,7 @@ custom_minimum_size = Vector2(2, 2)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.8666667, 0.15294118, 0.20392157, 1)
-text = "DO NOT LET THE MONKEYS HIT THE BUTTON DUMBASSSSSSSSSSSS"
+text = "Moonkeys can't touch the button"
 autowrap_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=701282825]

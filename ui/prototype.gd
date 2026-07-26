@@ -26,12 +26,13 @@ var state: STATE = STATE.NONE
 @onready var countdown_animation_player: AnimationPlayer = %CountdownAnimationPlayer
 @onready var shader_animation_player: AnimationPlayer = %ShaderAnimationPlayer
 @onready var startgame_reveal_animator: AnimationPlayer = %StartgameRevealAnimator
-@onready var button: Button = %Button
 @onready var start_menu: StartMenu = %StartMenu
 @onready var victory_screen: VictoryScreen = %VictoryScreen
+@onready var button: TextureButton = %TextureButton
 
 func _ready() -> void:
 	start_menu.visible = true
+	%PanelContainer.visible = false
 	countdown_animation_player.play("ok")
 	cheat_panel.visible = Constants.DEBUG_MODE
 	state = STATE.NONE
@@ -154,6 +155,7 @@ func game_lost() -> void:
 	startgame_reveal_animator.play_backwards("reveal")
 	await startgame_reveal_animator.animation_finished
 	start_menu.visible = true
+	%PanelContainer.visible = false
 
 	
 func round_won() -> void:
@@ -243,6 +245,7 @@ func _set_timer_speed(tic_time: float) -> void:
 
 func _on_start_menu_hidden_start_button_pressed() -> void:
 	start_menu.visible = false
+	%PanelContainer.visible = true
 	SoundManager.button_sound()
 	print("Starting Game")
 	start_game()

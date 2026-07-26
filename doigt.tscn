@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cm7n2f6yi454a"]
+
+[ext_resource type="Texture2D" uid="uid://b5e4cualp6p8m" path="res://assets/icons/doigt1.png" id="1_2wkx7"]
+[ext_resource type="Texture2D" uid="uid://diy7p44madhwp" path="res://assets/icons/doigt2.png" id="2_jax18"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_t2dwb"]
+frames = 2
+frame_0/texture = ExtResource("1_2wkx7")
+frame_0/duration = 1.5
+frame_1/texture = ExtResource("2_jax18")
+frame_1/duration = 1.0
+
+[node name="Doigt" type="TextureRect" unique_id=1698841275]
+offset_right = 42.0
+offset_bottom = 29.0
+texture = SubResource("AnimatedTexture_t2dwb")
+stretch_mode = 3

@@ -1,7 +1,57 @@
 [gd_scene format=3 uid="uid://b8e3ka4joxb0y"]
 
 [ext_resource type="Script" uid="uid://c8b7cueqqttes" path="res://ui/start_menu.gd" id="1_iuit4"]
+[ext_resource type="Texture2D" uid="uid://bnmqioyu4ofn2" path="res://assets/icons/titre.png" id="2_fl3bm"]
+[ext_resource type="Texture2D" uid="uid://bnpoglpj2m67e" path="res://assets/icons/bouton_menu.png" id="2_lb6g3"]
 [ext_resource type="PackedScene" uid="uid://cg2ltl5uwkda3" path="res://ui/credit.tscn" id="2_loyqk"]
+[ext_resource type="PackedScene" uid="uid://cm7n2f6yi454a" path="res://doigt.tscn" id="5_fl3bm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iuit4"]
+texture = ExtResource("2_lb6g3")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fl3bm"]
+load_path = "res://.godot/imported/bouton_menu.png-e3d491eb4c40c37054bc9de91f43b279.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ddqrn"]
+texture = SubResource("CompressedTexture2D_fl3bm")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dr3nq"]
+load_path = "res://.godot/imported/bouton_menu.png-e3d491eb4c40c37054bc9de91f43b279.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lbgow"]
+texture = SubResource("CompressedTexture2D_dr3nq")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eh4yk"]
+load_path = "res://.godot/imported/bouton_menu.png-e3d491eb4c40c37054bc9de91f43b279.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lnpn0"]
+texture = SubResource("CompressedTexture2D_eh4yk")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dfrpb"]
+load_path = "res://.godot/imported/bouton_menu.png-e3d491eb4c40c37054bc9de91f43b279.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sdwtg"]
+texture = SubResource("CompressedTexture2D_dfrpb")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t2dwb"]
 
@@ -25,21 +75,14 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_iuit4")
 
-[node name="Label" type="Label" parent="." unique_id=1774089459]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -814.0
-offset_top = -436.0
-offset_right = 825.0
-offset_bottom = -148.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 300
-text = "Moonkeys"
+[node name="TextureRect" type="TextureRect" parent="." unique_id=136035614]
+layout_mode = 0
+offset_left = 240.0
+offset_top = 66.0
+offset_right = 465.0
+offset_bottom = 134.0
+scale = Vector2(6, 6)
+texture = ExtResource("2_fl3bm")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1825320573]
 layout_mode = 1
@@ -48,22 +91,30 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -660.0
-offset_top = 50.0
-offset_right = -467.0
-offset_bottom = 266.0
+offset_left = -590.0
+offset_top = 46.0
+offset_right = -340.0
+offset_bottom = 289.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 43
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer" unique_id=1892529440]
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_iuit4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ddqrn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_lbgow")
 text = "CREDITs"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1167104513]
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_iuit4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lnpn0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_sdwtg")
 text = "QUIT"
 
 [node name="Credit" parent="." unique_id=18892528 instance=ExtResource("2_loyqk")]
@@ -84,6 +135,14 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_m2va7")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_oxha2")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_bhnsc")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_11rml")
+
+[node name="Doigt" parent="." unique_id=1698841275 instance=ExtResource("5_fl3bm")]
+layout_mode = 0
+offset_left = 935.0
+offset_top = 626.0
+offset_right = 977.0
+offset_bottom = 655.0
+scale = Vector2(4, 4)
 
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

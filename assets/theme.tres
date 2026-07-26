@@ -1,5 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://bkrcpant8se33"]
 
+[ext_resource type="Texture2D" uid="uid://dqgcx8qtychgp" path="res://assets/icons/UI_cadre_regles.png" id="1_5x3i2"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ps5jn"]
 expand_margin_left = 5.0
 expand_margin_top = 5.0
@@ -14,6 +16,17 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t2dwb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y61vb"]
+texture = ExtResource("1_5x3i2")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 8.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [resource]
 Button/font_sizes/font_size = 16
@@ -31,4 +44,5 @@ MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
+Panel/styles/panel = SubResource("StyleBoxTexture_y61vb")
 VBoxContainer/constants/separation = 5

@@ -18,7 +18,19 @@ shader_parameter/central_blob_width = 1.0
 shader_parameter/central_blob_height = 1.0
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_ep8eo")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ejwgg"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ejwgg"]
+load_path = "res://.godot/imported/UI_cadre_regles.png-69f31c7ddf901ad01adb369bde2bf389.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fob5h"]
+texture = SubResource("CompressedTexture2D_ejwgg")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 8.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [node name="PauseMenu" type="Control" unique_id=1075932734]
 visible = false
@@ -48,7 +60,7 @@ offset_right = 1046.5
 offset_bottom = 662.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ejwgg")
+theme_override_styles/panel = SubResource("StyleBoxTexture_fob5h")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1391281790]
 layout_mode = 2

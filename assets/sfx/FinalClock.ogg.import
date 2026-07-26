@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://c07o4ga8y1hkv"
+uid="uid://cgl72pw8esc41"
 path="res://.godot/imported/FinalClock.ogg-332f4be2331c8fbed8422b71b0631d95.oggvorbisstr"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/FinalClock.ogg-332f4be2331c8fbed8422b71b0631d
 
 [params]
 
-loop=true
-loop_offset=7.709
-bpm=0.0
+loop=false
+loop_offset=0
+bpm=0
 beat_count=0
 bar_beats=4
