@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://540p2vnk8b0c" path="res://assets/sfx/MoonkeyTalk2.wav" id="9_evlv8"]
 [ext_resource type="AudioStream" uid="uid://b4bth6tio1ewm" path="res://assets/sfx/MoonkeyTalk1.wav" id="9_nkb21"]
 [ext_resource type="AudioStream" uid="uid://cpw4ytb54k5ka" path="res://assets/sfx/wrongPress4.wav" id="10_evlv8"]
-[ext_resource type="AudioStream" uid="uid://c07o4ga8y1hkv" path="res://assets/sfx/FinalClock.ogg" id="10_h0gmd"]
+[ext_resource type="AudioStream" uid="uid://cgl72pw8esc41" path="res://assets/sfx/FinalClock.ogg" id="10_h0gmd"]
 [ext_resource type="AudioStream" uid="uid://2nffvvc6mhdq" path="res://assets/sfx/ButtonPress.wav" id="10_r2462"]
 [ext_resource type="AudioStream" uid="uid://chnkxm6y5hmq0" path="res://assets/sfx/CorrectPress.wav" id="11_am1vo"]
 [ext_resource type="AudioStream" uid="uid://bordeleo1o0oo" path="res://assets/sfx/WrongPress.wav" id="12_7yfr0"]
@@ -15,10 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://d0isdtulug38m" path="res://assets/sfx/SFX_STRONGtic.ogg" id="16_2ov7n"]
 [ext_resource type="AudioStream" uid="uid://b4e1whodxpwk" path="res://assets/sfx/startRound.ogg" id="17_do6pi"]
 [ext_resource type="AudioStream" uid="uid://onv783t5xif2" path="res://assets/sfx/SFX_StrongCorrect.ogg" id="18_ct40d"]
-[ext_resource type="AudioStream" uid="uid://dcv32vsc37130" path="res://assets/sfx/ohyeayea.ogg" id="19_p5xyy"]
+[ext_resource type="AudioStream" uid="uid://d1s728tly7eng" path="res://assets/sfx/Yoohoo.ogg" id="19_08o23"]
+[ext_resource type="AudioStream" uid="uid://c31yuaefkvi0a" path="res://assets/sfx/yoyoyoyo.ogg" id="20_0yf3m"]
 [ext_resource type="AudioStream" uid="uid://36tu6u6g4na5" path="res://assets/sfx/yeye.ogg" id="20_sryv5"]
-[ext_resource type="AudioStream" uid="uid://b6u5mp85agr37" path="res://assets/sfx/Yipee1.ogg" id="21_ialei"]
-[ext_resource type="AudioStream" uid="uid://buvy8yv1w8qqn" path="res://assets/sfx/Yipee2.ogg" id="22_p7c85"]
 [ext_resource type="AudioStream" uid="uid://cpd70i8mk8us1" path="res://assets/sfx/Yipee3.ogg" id="23_l7b8h"]
 [ext_resource type="AudioStream" uid="uid://csa08mox60oc7" path="res://assets/sfx/Yuyeye.ogg" id="24_txfk0"]
 [ext_resource type="AudioStream" uid="uid://dy341w0p0lsiu" path="res://assets/sfx/dommage.ogg" id="25_js4pt"]
@@ -27,7 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://bvx184cds4la1" path="res://assets/sfx/dommage4.ogg" id="28_q41vn"]
 [ext_resource type="AudioStream" uid="uid://dvw4flxgl2n5o" path="res://assets/sfx/dommage5.ogg" id="29_mcbub"]
 [ext_resource type="AudioStream" uid="uid://hdai3aflrhdx" path="res://assets/sfx/dommage6.ogg" id="30_bpuv5"]
-[ext_resource type="AudioStream" uid="uid://co1riyl6x5tfc" path="res://assets/sfx/dommage7.ogg" id="31_qynij"]
+[ext_resource type="AudioStream" uid="uid://csyjn6s55brmg" path="res://assets/sfx/dommage7.ogg" id="31_qynij"]
 [ext_resource type="AudioStream" uid="uid://dmhro5xxxlce3" path="res://assets/sfx/VictorySONG.ogg" id="32_sryv5"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nkb21"]
@@ -44,18 +43,20 @@ stream_1/stream = ExtResource("12_7yfr0")
 stream_2/stream = ExtResource("10_evlv8")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jtde7"]
-playback_mode = 2
-random_volume_offset_db = 0.78
-streams_count = 6
-stream_0/stream = ExtResource("19_p5xyy")
-stream_1/stream = ExtResource("20_sryv5")
-stream_2/stream = ExtResource("21_ialei")
-stream_3/stream = ExtResource("22_p7c85")
-stream_4/stream = ExtResource("23_l7b8h")
-stream_5/stream = ExtResource("24_txfk0")
+random_pitch = 1.0224876
+random_volume_offset_db = 1.03
+streams_count = 5
+stream_0/stream = ExtResource("23_l7b8h")
+stream_0/weight = 3.0
+stream_1/stream = ExtResource("24_txfk0")
+stream_1/weight = 3.0
+stream_2/stream = ExtResource("20_sryv5")
+stream_3/stream = ExtResource("19_08o23")
+stream_3/weight = 3.0
+stream_4/stream = ExtResource("20_0yf3m")
+stream_4/weight = 3.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5h5u7"]
-playback_mode = 2
 random_pitch = 1.0273421
 random_volume_offset_db = 0.83
 streams_count = 7
@@ -126,13 +127,14 @@ volume_db = -19.158
 
 [node name="moonkeyHype" type="AudioStreamPlayer" parent="." unique_id=1710001137]
 stream = SubResource("AudioStreamRandomizer_jtde7")
-volume_db = 3.671
-max_polyphony = 5
+volume_db = -29.713
+max_polyphony = 2
 bus = &"Sfx"
 
 [node name="moonkeyBoo" type="AudioStreamPlayer" parent="." unique_id=611143015]
 stream = SubResource("AudioStreamRandomizer_5h5u7")
-volume_db = -2.971
+volume_db = -26.481
+max_polyphony = 3
 bus = &"Sfx"
 
 [node name="Victory_Song" type="AudioStreamPlayer" parent="." unique_id=1967934606]
