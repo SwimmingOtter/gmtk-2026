@@ -12,3 +12,5 @@ signal round_won()
 signal button_pressed_error()
 
 signal countdown_ticked()
+
+signal monkey_talked()

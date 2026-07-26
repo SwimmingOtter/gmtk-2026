@@ -34,6 +34,7 @@ func _ready() -> void:
 	cheat_panel.visible = Constants.DEBUG_MODE
 	state = STATE.NONE
 	_set_timer_speed(timer_tic_time)
+	SoundManager.play_game_intro()
 	%ColorRect.visible = true
 
 

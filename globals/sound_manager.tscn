@@ -3,12 +3,18 @@
 [ext_resource type="Script" uid="uid://df617gj8mfue0" path="res://globals/sound_manager.gd" id="1_017xh"]
 [ext_resource type="AudioStream" uid="uid://x41xqerxaavk" path="res://assets/sfx/CountDownTic.wav" id="2_pf7bt"]
 [ext_resource type="AudioStream" uid="uid://clj6h4nshjvby" path="res://assets/sfx/moonkeyBCGmusic.wav" id="8_d23r7"]
+[ext_resource type="AudioStream" uid="uid://cpuc235lfdb6e" path="res://assets/sfx/wrongPress3.wav" id="9_7yfr0"]
 [ext_resource type="AudioStream" uid="uid://540p2vnk8b0c" path="res://assets/sfx/MoonkeyTalk2.wav" id="9_evlv8"]
 [ext_resource type="AudioStream" uid="uid://b4bth6tio1ewm" path="res://assets/sfx/MoonkeyTalk1.wav" id="9_nkb21"]
+[ext_resource type="AudioStream" uid="uid://cpw4ytb54k5ka" path="res://assets/sfx/wrongPress4.wav" id="10_evlv8"]
+[ext_resource type="AudioStream" uid="uid://c07o4ga8y1hkv" path="res://assets/sfx/FinalClock.ogg" id="10_h0gmd"]
 [ext_resource type="AudioStream" uid="uid://2nffvvc6mhdq" path="res://assets/sfx/ButtonPress.wav" id="10_r2462"]
 [ext_resource type="AudioStream" uid="uid://chnkxm6y5hmq0" path="res://assets/sfx/CorrectPress.wav" id="11_am1vo"]
 [ext_resource type="AudioStream" uid="uid://bordeleo1o0oo" path="res://assets/sfx/WrongPress.wav" id="12_7yfr0"]
+[ext_resource type="AudioStream" uid="uid://cn47s8m46xfwi" path="res://assets/sfx/introChords.ogg" id="13_7yfr0"]
 [ext_resource type="AudioStream" uid="uid://tmjq7x1r346x" path="res://assets/sfx/GameLost.wav" id="13_evlv8"]
+[ext_resource type="AudioStream" uid="uid://dimg2d0y2sqrk" path="res://assets/sfx/clockNoIntro.ogg" id="14_evlv8"]
+[ext_resource type="AudioStream" uid="uid://rcw33uuwgmks" path="res://assets/sfx/initialTic.ogg" id="15_jmfhx"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_nkb21"]
 random_pitch = 1.10605
@@ -17,23 +23,31 @@ stream_0/stream = ExtResource("9_nkb21")
 stream_0/weight = 0.0
 stream_1/stream = ExtResource("9_evlv8")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_umoof"]
+streams_count = 3
+stream_0/stream = ExtResource("9_7yfr0")
+stream_1/stream = ExtResource("12_7yfr0")
+stream_2/stream = ExtResource("10_evlv8")
+
 [node name="SoundManager" type="Node" unique_id=935462357]
 script = ExtResource("1_017xh")
 
 [node name="SFX_Tic" type="AudioStreamPlayer" parent="." unique_id=912064091]
 stream = ExtResource("2_pf7bt")
 volume_db = -21.351
+bus = &"Clock"
 
 [node name="bcg_moonkey" type="AudioStreamPlayer" parent="." unique_id=1831834358]
 stream = ExtResource("8_d23r7")
-volume_db = -80.0
+volume_db = -17.965
 bus = &"Music"
 
 [node name="SFX_Blabla" type="AudioStreamPlayer" parent="." unique_id=2034939777]
 stream = SubResource("AudioStreamRandomizer_nkb21")
-volume_db = -35.852
+volume_db = -38.768
 pitch_scale = 0.99
 max_polyphony = 4
+bus = &"Sfx"
 
 [node name="buttonPress" type="AudioStreamPlayer" parent="." unique_id=729719619]
 stream = ExtResource("10_r2462")
@@ -42,11 +56,32 @@ volume_db = -24.632
 [node name="correctPress" type="AudioStreamPlayer" parent="." unique_id=1391837816]
 stream = ExtResource("11_am1vo")
 volume_db = -29.193
+bus = &"Sfx"
 
 [node name="wrongPress" type="AudioStreamPlayer" parent="." unique_id=2113605322]
-stream = ExtResource("12_7yfr0")
+stream = SubResource("AudioStreamRandomizer_umoof")
 volume_db = -21.517
+bus = &"Sfx"
 
 [node name="gameOver" type="AudioStreamPlayer" parent="." unique_id=1856710694]
 stream = ExtResource("13_evlv8")
 volume_db = -19.158
+bus = &"Sfx"
+
+[node name="waitingClock" type="AudioStreamPlayer" parent="." unique_id=41150150]
+stream = ExtResource("10_h0gmd")
+volume_db = -17.333
+bus = &"Music"
+
+[node name="introChords" type="AudioStreamPlayer" parent="." unique_id=1892900317]
+stream = ExtResource("13_7yfr0")
+volume_db = -6.386
+bus = &"Music"
+
+[node name="ClocknoIntro" type="AudioStreamPlayer" parent="." unique_id=286059295]
+stream = ExtResource("14_evlv8")
+volume_db = -6.386
+
+[node name="SFX_FirstTick" type="AudioStreamPlayer" parent="." unique_id=2034808247]
+stream = ExtResource("15_jmfhx")
+volume_db = -17.333
