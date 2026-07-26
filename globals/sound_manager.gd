@@ -1,89 +1,118 @@
 extends Node
-
 @onready var sfx_tic: AudioStreamPlayer = $SFX_Tic
-@onready var sfx_la: AudioStreamPlayer = $SFX_La
-@onready var sfx_re: AudioStreamPlayer = $SFX_Re
-@onready var sfx_re_sharp: AudioStreamPlayer = $SFX_ReSharp
-@onready var sfx_do: AudioStreamPlayer = $SFX_Do
-@onready var background_music: AudioStreamPlayer = $background_Music
-@onready var bcg_moonkey: AudioStreamPlayer = $bcg_moonkey
-@onready var blabla: AudioStreamPlayer = $Blabla
-@onready var moonkey_first: AudioStreamPlayer = $MoonkeyFirst
-@onready var moonkey_second: AudioStreamPlayer = $MoonkeySecond
-@onready var wrong: AudioStreamPlayer = $Wrong
-@onready var game_over: AudioStreamPlayer = $GameOver
+@onready var sfx_blabla: AudioStreamPlayer = $SFX_Blabla
+@onready var button_press: AudioStreamPlayer = $buttonPress
+@onready var correct_press: AudioStreamPlayer = $correctPress
+@onready var wrong_press: AudioStreamPlayer = $wrongPress
+@onready var game_over: AudioStreamPlayer = $gameOver
+@onready var waiting_clock: AudioStreamPlayer = $waitingClock
+@onready var sfx_first_tick: AudioStreamPlayer = $SFX_FirstTick
+@onready var sfx_strong_tick: AudioStreamPlayer = $SFX_StrongTick
+@onready var sfx_round_start: AudioStreamPlayer = $SFX_RoundStart
+@onready var sfx_strong_correct: AudioStreamPlayer = $SFX_StrongCorrect
+@onready var moonkey_hype: AudioStreamPlayer = $moonkeyHype
+@onready var moonkey_boo: AudioStreamPlayer = $moonkeyBoo
+@onready var victory_song: AudioStreamPlayer = $Victory_Song
+@onready var moonkey_theme: AudioStreamPlayer = $MoonkeyTheme
+
+
 
 var measure_music: int = 0
 var first_bar: bool = true
+var nb_rules: int = 1
+var nextIsStart: bool = true
+var seriousLevel : int = 10
 
 func _ready() -> void:
-	EventBus.game_started.connect(play_background_music)
 	EventBus.button_pressed_error.connect(wrongSound)
 	EventBus.game_lost.connect(handle_game_lost)
 	EventBus.round_won.connect(correctSound)
+	EventBus.game_started.connect(stop_sounds_start)
+	EventBus.moonkey_talked.connect(moonkeyTalk)
+	EventBus.rules_changed.connect(_new_rule)
+	EventBus.game_won.connect(victory_music)
+	EventBus.timer_paused.connect(setNextIsStart)
+	EventBus.game_restarted.connect(stopVictoryMusic)
+	
+func _new_rule(rules: Dictionary) -> void:
+	nb_rules += 1
 
+func stopVictoryMusic():
+	if victory_song.playing:
+		victory_song.stop()
 
+func setNextIsStart():
+	nextIsStart = true
+	
+func playFirstTick():
+	sfx_first_tick.play()
+	
+func play_game_intro():
+	moonkey_theme.play()
+	
 func handle_game_lost():
-	stop_moonkey_music()
 	reset_measure_count()
+	start_clock()
 	game_lost()
 
+func victory_music():
+	victory_song.play()
+	
 
 func reset_measure_count():
 	measure_music = 0
 
-
-func play_background_music():
-	if not background_music.playing:
-		background_music.play()
-
-func stop_background_music():
-	if background_music.playing:
-		background_music.stop()
-		
-func play_moonkey_music():
-	if not bcg_moonkey.playing:
-		bcg_moonkey.play()
-
-func stop_moonkey_music():
-	if bcg_moonkey.playing:
-		bcg_moonkey.stop()
+func start_clock() -> void:
+	waiting_clock.play()
+	
+func stop_sounds_start():
+	if waiting_clock.playing:
+		waiting_clock.stop()
+	if moonkey_theme.playing:
+		moonkey_theme.stop()
+	sfx_round_start.play()
+	
 		
 func moonkeyTalk():
-	blabla.play()
+	sfx_blabla.play()
+
+func moonkeyHype():
+	moonkey_hype.play()
+	
+func moonkeyBoo():
+	moonkey_boo.play()
+	
 	
 func correctSound():
-	moonkey_second.play()
+	if button_press.playing:
+		button_press.stop()
+	if nb_rules <= seriousLevel:
+		correct_press.play()
+	else:
+		sfx_strong_correct.play()
+	
 func wrongSound():
-	wrong.play()
+	if button_press.playing:
+		button_press.stop()
+	wrong_press.play()
 	
 func game_lost():
+	if wrong_press.playing:
+		wrong_press.stop()
 	game_over.play()
 
 func button_sound():
-	moonkey_first.play()
+	if !nextIsStart:
+		button_press.play()
+	else:
+		sfx_round_start.play()
+		nextIsStart = false
 
 func play_count_down_sound():
-	sfx_tic.play()
-	measure_music += 1
-	if measure_music == 16:
-			measure_music = 0
-			
-	if measure_music == 9 && not bcg_moonkey.playing:
-		play_moonkey_music()
-	if first_bar:
-		if measure_music != 7:
-			measure_music += 1
+	measure_music += 1	
+	if measure_music >= 1:
+		if nb_rules <= seriousLevel:
+			sfx_tic.play()
 		else:
-			measure_music = 0
-			first_bar = false
-	else:
-		"""if measure_music == 1:
-			moonkey_first.play()
-		if measure_music == 3:
-			moonkey_second.play()
-		else: if measure_music == 5:
-		else: if measure_music == 7:
-		else: if measure_music == 9:"""
-		if measure_music == 16:
-			measure_music = 0
+			sfx_strong_tick.play()
+	

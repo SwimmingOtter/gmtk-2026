@@ -56,6 +56,7 @@ func idle():
 	update_state()
 
 func talk():
+	EventBus.moonkey_talked.emit()
 	if animated_sprite_2d.flip_h:
 		%BubbleSprite.flip_h = true
 		%BubbleSprite.position.x = 54

@@ -37,6 +37,7 @@ func _ready() -> void:
 	state = STATE.NONE
 	_set_timer_speed(timer_tic_time)
 	%ColorRect.visible = true
+	SoundManager.play_game_intro()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -121,6 +122,7 @@ func inter_round(go_to_next: bool) -> void:
 		%TransitionCountdownAnimationPlayer.play("new_rule")
 	else:
 		%TransitionCountdownAnimationPlayer.play("again")
+		EventBus.timer_paused.emit()
 	await %TransitionCountdownAnimationPlayer.animation_finished
 
 
@@ -156,6 +158,7 @@ func game_lost() -> void:
 	
 func round_won() -> void:
 	EventBus.round_won.emit()
+	EventBus.timer_paused.emit()
 	round_nb += 1
 	retry_count -= Constants.RETRY_WON_ON_SUCCES
 
@@ -246,6 +249,7 @@ func _on_start_menu_hidden_start_button_pressed() -> void:
 
 
 func _on_victory_screen_replay_button_pressed() -> void:
+	EventBus.game_restarted.emit()
 	victory_screen.visible = false
 	print("Starting Game")
 	start_game()
